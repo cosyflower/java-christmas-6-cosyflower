@@ -1,4 +1,4 @@
-package christmas.domain.discount;
+package christmas.discount;
 
 public enum DiscountType {
     ;

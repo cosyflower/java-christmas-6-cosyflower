@@ -1,4 +1,4 @@
-package christmas.domain.discount;
+package christmas.discount;
 
 public class DiscountEventName {
     private final String eventNameVaue;

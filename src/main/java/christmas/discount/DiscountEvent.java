@@ -1,6 +1,6 @@
-package christmas.domain.discount;
+package christmas.discount;
 
-import christmas.domain.Day;
+import christmas.Day;
 import java.util.function.Function;
 import java.util.function.Predicate;
 

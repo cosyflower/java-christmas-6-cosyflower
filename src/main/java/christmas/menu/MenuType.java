@@ -1,4 +1,4 @@
-package christmas.domain.menu;
+package christmas.menu;
 
 public enum MenuType {
     APPETIZER("appetizer"),

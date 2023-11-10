@@ -1,13 +1,13 @@
-package christmas.domain;
+package christmas;
 
 import christmas.discount.DiscountPrice;
 import java.util.Arrays;
 import java.util.function.Predicate;
 
 public enum EventBadge {
-    STAR("별", (price) -> price.isBetweenPrice(5000, 10000)),
-    TREE("트리", (price) -> price.isBetweenPrice(10000, 20000)),
-    SANTA("산타", (price) -> price.isBetweenPrice(20000, Integer.MAX_VALUE))
+    STAR("별", (price) -> price.isBetweenPrice(Constants.BADGE_FIRST_CRITERA, Constants.BADGE_MIDDEL_CRITERA)),
+    TREE("트리", (price) -> price.isBetweenPrice(Constants.BADGE_MIDDEL_CRITERA, Constants.BADGE_LAST_CRITERA)),
+    SANTA("산타", (price) -> price.isBetweenPrice(Constants.BADGE_LAST_CRITERA, Integer.MAX_VALUE))
     ;
 
     private final String description;

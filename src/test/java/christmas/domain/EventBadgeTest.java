@@ -1,5 +1,6 @@
 package christmas.domain;
 
+import christmas.EventBadge;
 import christmas.discount.DiscountPrice;
 import java.util.stream.Stream;
 import org.assertj.core.api.Assertions;

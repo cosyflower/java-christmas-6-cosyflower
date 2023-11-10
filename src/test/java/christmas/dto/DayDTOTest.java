@@ -9,14 +9,14 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
 
-class DateDTOTest {
+class DayDTOTest {
     @Nested
     @DisplayName(value = "예외가 발생하는 상황")
     class UnvalidDateDto {
         @ParameterizedTest
         @NullAndEmptySource
         void 아무것도_입력하지_않으면_예외(String nullAndEmpty) {
-            Assertions.assertThatThrownBy(() -> DateDTO.from(nullAndEmpty))
+            Assertions.assertThatThrownBy(() -> DayDTO.from(nullAndEmpty))
                     .isInstanceOf(IllegalArgumentException.class)
                     .hasMessageContaining("아무것도");
         }
@@ -32,7 +32,7 @@ class DateDTOTest {
         @ParameterizedTest
         @MethodSource("generateNonNumber")
         void 수가_아닌_문자를_입력하면_예외(String nonNumber) {
-            Assertions.assertThatThrownBy(() -> DateDTO.from(nonNumber))
+            Assertions.assertThatThrownBy(() -> DayDTO.from(nonNumber))
                     .isInstanceOf(IllegalArgumentException.class)
                     .hasMessageContaining("수를");
         }
@@ -52,7 +52,7 @@ class DateDTOTest {
         @ParameterizedTest
         @MethodSource("generateNumber")
         void 수를_입력하면_성공(String number) {
-            Assertions.assertThatCode(() -> DateDTO.from(number))
+            Assertions.assertThatCode(() -> DayDTO.from(number))
                     .doesNotThrowAnyException();
         }
     }

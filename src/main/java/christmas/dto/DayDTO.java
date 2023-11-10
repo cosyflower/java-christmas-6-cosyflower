@@ -2,16 +2,16 @@ package christmas.dto;
 
 import christmas.Constants;
 
-public class DateDTO {
+public class DayDTO {
     private final String dateDTO;
 
-    private DateDTO(String dateDTO) {
+    private DayDTO(String dateDTO) {
         validate(dateDTO);
         this.dateDTO = dateDTO;
     }
 
-    public static DateDTO from(String dateDTO) {
-        return new DateDTO(dateDTO);
+    public static DayDTO from(String dateDTO) {
+        return new DayDTO(dateDTO);
     }
 
     private void validate(String dateDTO) {

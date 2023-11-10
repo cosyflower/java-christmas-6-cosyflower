@@ -14,4 +14,16 @@ public class DiscountPrice {
     public int getDiscountPriceValue() {
         return discountPriceValue;
     }
+
+    public boolean isBetweenPrice(int minInclusive, int maxExclusive) {
+        return isSameAndHigherThan(minInclusive) && isLowerThan(maxExclusive);
+    }
+
+    private boolean isSameAndHigherThan(int otherValue) {
+        return discountPriceValue >= otherValue;
+    }
+
+    private boolean isLowerThan(int otherValue) {
+        return discountPriceValue < otherValue;
+    }
 }

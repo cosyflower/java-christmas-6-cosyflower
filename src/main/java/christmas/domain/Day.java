@@ -5,7 +5,18 @@ public class Day {
     private final int dayValue;
 
     private Day(int dayValue) {
+        validate(dayValue);
         this.dayValue = dayValue;
+    }
+
+    private void validate(int dayValue) {
+        isInRange(dayValue);
+    }
+
+    private void isInRange(int dayValue) {
+        if (dayValue > 31 || dayValue < 1) {
+            throw new IllegalArgumentException("유효하지 않은 날짜입니다.");
+        }
     }
 
     public static Day from(int dayValue) {
@@ -20,10 +31,6 @@ public class Day {
         return !isWeekend();
     }
 
-    private boolean isSameRemain(int remainValue) {
-        return dayValue % 7 == remainValue;
-    }
-
     public boolean isBeforeThan(int day) {
         return dayValue <= day;
     }
@@ -34,6 +41,12 @@ public class Day {
         }
         return isSameRemain(3);
     }
+
+    private boolean isSameRemain(int remainValue) {
+        return dayValue % 7 == remainValue;
+    }
+
+
 
     public int getDay() {
         return dayValue;

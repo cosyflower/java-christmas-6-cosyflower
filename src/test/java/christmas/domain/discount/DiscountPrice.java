@@ -10,4 +10,8 @@ public class DiscountPrice {
     public static DiscountPrice from(int discountPriceValue) {
         return new DiscountPrice(discountPriceValue);
     }
+
+    public int getDiscountPriceValue() {
+        return discountPriceValue;
+    }
 }

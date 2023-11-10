@@ -1,23 +1,31 @@
 package christmas.domain.discount;
 
 import christmas.domain.Day;
-import java.util.function.BiFunction;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 public enum DiscountEvent {
-    WEEKDAY_EVENT((price, day) -> DiscountPrice.from(2023), (day -> day.isWeekDay())),
-    WEEKEND_EVENT((price, day) -> DiscountPrice.from(2023), (day -> day.isWeekend())),
-    CHRISTMAS_EVENT((price, day) -> DiscountPrice.from(100 * (day.getDay() - 1) + 1000), (day -> day.isBeforeThan(25))),
-    PROMOTION_EVENT((price, day) -> DiscountPrice.from(25000), (day -> day.isBeforeThan(30))),
-    SPECIAL_EVENT((price, day) -> DiscountPrice.from(100), (day -> day.isSpecialDay()))
+    WEEKDAY_EVENT(day -> DiscountPrice.from(2023), (day -> day.isWeekDay())),
+    WEEKEND_EVENT(day -> DiscountPrice.from(2023), (day -> day.isWeekend())),
+    CHRISTMAS_EVENT(day -> DiscountPrice.from(100 * (day.getDay() - 1) + 1000), (day -> day.isBeforeThan(25))),
+    PROMOTION_EVENT(day -> DiscountPrice.from(25000), (day -> day.isBeforeThan(30))),
+    SPECIAL_EVENT(day -> DiscountPrice.from(100), (day -> day.isSpecialDay()))
     ;
 
-    private final BiFunction<DiscountPrice, Day, DiscountPrice> discountPrice; // DiscountPrice 금액을 말한다
+    private final Function<Day, DiscountPrice> discountPriceFunction; // DiscountPrice 금액을 말한다
     private final Predicate<Day> isEventDay; // 날짜 조건 (가능한 날)
 
-    DiscountEvent(BiFunction<DiscountPrice, Day, DiscountPrice> discountPrice,
-                  Predicate<Day> isEventDay) {
-        this.discountPrice = discountPrice;
+    DiscountEvent(
+            Function<Day, DiscountPrice> discountPriceFunction,
+            Predicate<Day> isEventDay) {
+        this.discountPriceFunction = discountPriceFunction;
         this.isEventDay = isEventDay;
+    }
+
+    public DiscountPrice getDiscountPrice(Day day) {
+        if (!isEventDay.test(day)) {
+            return DiscountPrice.from(0);
+        }
+        return discountPriceFunction.apply(day);
     }
 }

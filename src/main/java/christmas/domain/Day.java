@@ -1,4 +1,4 @@
-package christmas;
+package christmas.domain;
 
 public class Day {
     public static final int SPECIAL_DAY = 25;

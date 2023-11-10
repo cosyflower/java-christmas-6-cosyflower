@@ -1,4 +1,4 @@
-package christmas.discount;
+package christmas.domain.discount;
 
 public class DiscountPrice {
     private final int discountPriceValue;

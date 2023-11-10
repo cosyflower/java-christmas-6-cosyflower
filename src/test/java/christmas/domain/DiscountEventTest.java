@@ -2,9 +2,8 @@ package christmas.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import christmas.Day;
-import christmas.discount.DiscountEvent;
-import christmas.discount.DiscountPrice;
+import christmas.domain.discount.DiscountEvent;
+import christmas.domain.discount.DiscountPrice;
 import java.util.stream.Stream;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;

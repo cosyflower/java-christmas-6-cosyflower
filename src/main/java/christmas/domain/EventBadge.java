@@ -1,6 +1,7 @@
-package christmas;
+package christmas.domain;
 
-import christmas.discount.DiscountPrice;
+import christmas.Constants;
+import christmas.domain.discount.DiscountPrice;
 import java.util.Arrays;
 import java.util.function.Predicate;
 

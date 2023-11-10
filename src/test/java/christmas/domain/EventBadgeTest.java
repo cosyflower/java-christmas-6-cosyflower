@@ -1,7 +1,6 @@
 package christmas.domain;
 
-import christmas.EventBadge;
-import christmas.discount.DiscountPrice;
+import christmas.domain.discount.DiscountPrice;
 import java.util.stream.Stream;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;

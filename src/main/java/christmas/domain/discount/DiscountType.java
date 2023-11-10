@@ -1,5 +1,9 @@
 package christmas.domain.discount;
 
+import christmas.domain.Day;
+import java.util.Arrays;
+import java.util.List;
+
 public enum DiscountType {
     WEEKDAY_DISCOUNT(DiscountEvent.WEEKDAY_EVENT, DiscountEventName.from("평일 할인")),
     WEEKEND_DISCOUNT(DiscountEvent.WEEKEND_EVENT, DiscountEventName.from("주말 할인")),
@@ -16,8 +20,15 @@ public enum DiscountType {
         this.discountEventName = discountEventName;
     }
 
-    // 적용가능한 할인이 무엇인지 알 수 있어야 한다
-    // Day를 인자로 넘겨줘야 한다
-    // List<DiscountType>을 반환하는 방향으로 진행한다 (적용 가능한 할인 리스트)
+    // 가능한 DiscountType을 받는다
+    public static List<DiscountType> checkValidDiscountType(Day day) {
+        return Arrays.stream(values())
+                .filter(discountType -> discountType.checkValidEvent(day))
+                .toList();
+    }
+
+    private boolean checkValidEvent(Day day) {
+        return discountEvent.isValidEvent(day);
+    }
 
 }

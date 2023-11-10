@@ -28,4 +28,8 @@ public enum DiscountEvent {
         }
         return discountPriceFunction.apply(day);
     }
+
+    public boolean isValidEvent(Day day) {
+        return isEventDay.test(day);
+    }
 }

@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.function.Predicate;
 
 public enum EventBadge {
+    NOTHINIG("없음", (price) -> price.isBetweenPrice(Constants.INIT_VALUE, Constants.BADGE_FIRST_CRITERA)),
     STAR("별", (price) -> price.isBetweenPrice(Constants.BADGE_FIRST_CRITERA, Constants.BADGE_MIDDEL_CRITERA)),
     TREE("트리", (price) -> price.isBetweenPrice(Constants.BADGE_MIDDEL_CRITERA, Constants.BADGE_LAST_CRITERA)),
     SANTA("산타", (price) -> price.isBetweenPrice(Constants.BADGE_LAST_CRITERA, Integer.MAX_VALUE))
@@ -14,10 +15,6 @@ public enum EventBadge {
     private final String description;
     private final Predicate<DiscountPrice> discountPriceCriteria;
 
-//    private static Map<EventBadge, Predicate<DiscountPrice>> eventBadgeDiscountPriceMap =
-//            Collections.unmodifiableMap(Arrays.stream(values())
-//                    .collect(Collectors.toMap(Function.identity(), (map) -> map.discountPriceCriteria))
-//            );
 
     EventBadge(String description,
                Predicate<DiscountPrice> discountPriceCriteria) {

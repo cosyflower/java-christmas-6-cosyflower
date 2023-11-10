@@ -2,15 +2,15 @@ package christmas.domain.menu;
 
 import java.util.Objects;
 
-public class Price {
+public class MenuPrice {
     private final int price;
 
-    private Price(int price) {
+    private MenuPrice(int price) {
         this.price = price;
     }
 
-    public static Price from(int price) {
-        return new Price(price);
+    public static MenuPrice from(int price) {
+        return new MenuPrice(price);
     }
 
     public int getPrice() {
@@ -25,7 +25,7 @@ public class Price {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Price price1 = (Price) o;
+        MenuPrice price1 = (MenuPrice) o;
         return getPrice() == price1.getPrice();
     }
 

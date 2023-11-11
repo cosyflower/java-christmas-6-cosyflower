@@ -1,4 +1,4 @@
-package christmas;
+package christmas.domain.util;
 
 import java.util.regex.Pattern;
 

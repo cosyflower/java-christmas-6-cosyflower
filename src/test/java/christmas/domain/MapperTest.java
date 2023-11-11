@@ -2,6 +2,10 @@ package christmas.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import christmas.domain.order.AcceptedOrders;
+import christmas.domain.order.Order;
+import christmas.domain.util.Mapper;
+import christmas.dto.OrderDTO;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 

@@ -1,5 +1,7 @@
-package christmas.domain;
+package christmas.domain.util;
 
+import christmas.domain.order.AcceptedOrders;
+import christmas.domain.order.Order;
 import java.util.Arrays;
 import java.util.List;
 

@@ -16,7 +16,7 @@ public class MenuProductTest {
         MenuProduct mushroomSoup = MenuProduct.MUSHROOM_SOUP;
 
         assertThat(mushroomSoup.getMenuType()).isEqualTo(MenuType.APPETIZER);
-        assertThat(mushroomSoup.getMenuName()).isEqualTo(MenuName.from("양송이 스프"));
+        assertThat(mushroomSoup.getMenuName()).isEqualTo(MenuName.from("양송이스프"));
         assertThat(mushroomSoup.getPrice()).isEqualTo(MenuPrice.from(6000));
     }
 }

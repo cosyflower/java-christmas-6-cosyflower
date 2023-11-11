@@ -1,6 +1,6 @@
 package christmas.domain;
 
-import christmas.Constants;
+import christmas.domain.util.Constants;
 import christmas.domain.discount.DiscountPrice;
 import java.util.Arrays;
 import java.util.function.Predicate;

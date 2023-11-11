@@ -1,6 +1,6 @@
 package christmas.dto;
 
-import christmas.Constants;
+import christmas.domain.util.Constants;
 
 public class DayDTO {
     private final String dateDTO;

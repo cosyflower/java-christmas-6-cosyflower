@@ -13,5 +13,4 @@ public enum MenuType {
         this.description = description;
     }
 
-
 }

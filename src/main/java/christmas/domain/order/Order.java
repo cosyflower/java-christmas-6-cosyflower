@@ -35,4 +35,8 @@ public class Order {
     public int hashCode() {
         return Objects.hash(menuProduct, menuQuantity);
     }
+
+    public MenuProduct getMenuProduct() {
+        return menuProduct;
+    }
 }

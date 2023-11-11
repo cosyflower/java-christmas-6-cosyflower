@@ -51,7 +51,7 @@ public class OrderDTOTest {
     @DisplayName("예외가 발생하지 않는 경우")
     class validOrder {
         @ParameterizedTest
-        @ValueSource(strings = "양송이스프-2,티본스테이크-3")
+        @ValueSource(strings = {"양송이스프-2,티본스테이크-3", "양송이스프-2,양송이스프-2"})
         void 형식에_맞게_입력하면_성공(String validOrder) {
             assertThatCode(() -> new OrderDTO(validOrder))
                     .doesNotThrowAnyException();

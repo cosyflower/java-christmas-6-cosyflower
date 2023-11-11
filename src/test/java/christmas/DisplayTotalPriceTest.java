@@ -27,8 +27,8 @@ public class DisplayTotalPriceTest {
                 Order.from("양송이스프-2"), Order.from("티본스테이크-3")
         );
 
-        int totalPrice = acceptedOrders.checkTotalPriceWithoutDiscount();
-        Assertions.assertThat(totalPrice).isEqualTo(total);
+        TotalPrice totalPrice = TotalPrice.from(acceptedOrders.checkTotalPriceWithoutDiscount());
+        Assertions.assertThat(totalPrice.getTotalPrice()).isEqualTo(total);
     }
 
 

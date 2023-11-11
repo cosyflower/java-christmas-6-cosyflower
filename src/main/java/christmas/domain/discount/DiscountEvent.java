@@ -8,7 +8,7 @@ public enum DiscountEvent { // 유닛 당 할인 금액 or 고정 금액 그리�
     WEEKDAY_EVENT(day -> DiscountPrice.from(2023), (day -> day.isWeekDay())),
     WEEKEND_EVENT(day -> DiscountPrice.from(2023), (day -> day.isWeekend())),
     CHRISTMAS_EVENT(day -> DiscountPrice.from(100 * (day.getDay() - 1) + 1000), (day -> day.isBeforeThan(25))),
-    PROMOTION_EVENT(day -> DiscountPrice.from(25000), (day -> day.isBeforeThan(30))),
+    PROMOTION_EVENT(day -> DiscountPrice.from(25000), (day -> day.isBeforeThan(31))),
     SPECIAL_EVENT(day -> DiscountPrice.from(100), (day -> day.isSpecialDay()))
     ;
 

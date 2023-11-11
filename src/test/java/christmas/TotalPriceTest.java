@@ -8,7 +8,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-public class DisplayTotalPriceTest {
+public class TotalPriceTest {
     // 할인 받기 전 총 결제 내역을 확인한다
     // 주문 내역은 AcceptedOrders로 확인한다
     // Order은 MenuProduct Quantity로 구성

@@ -14,4 +14,11 @@ public class TotalPrice {
     public int getTotalPrice() {
         return totalPrice;
     }
+
+    public boolean isLowerThanPromotionCriteria() {
+        if (totalPrice < 120000) {
+            return true;
+        }
+        return false;
+    }
 }

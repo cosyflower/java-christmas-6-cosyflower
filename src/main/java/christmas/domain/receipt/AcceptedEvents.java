@@ -26,7 +26,6 @@ public class AcceptedEvents {
         return discountTypes;
     }
 
-    public List<DiscountType> getDiscountTypes() {
-        return Collections.unmodifiableList(acceptedEvents);
+    public List<DiscountType> getDiscountTypes() { return Collections.unmodifiableList(acceptedEvents);
     }
 }

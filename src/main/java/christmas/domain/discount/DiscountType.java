@@ -31,4 +31,7 @@ public enum DiscountType { // 이벤트 관련 총 정보
         return discountEvent.isValidEvent(day);
     }
 
+    public DiscountEvent getDiscountEvent() {
+        return discountEvent;
+    }
 }

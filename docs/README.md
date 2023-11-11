@@ -83,12 +83,22 @@
     - 복수의 경우도 가능하다
 
 2. 확인된 혜택을 통해 주문한 메뉴로부터 할인 금액을 확인할 수 있다
-  - 적용 가능한 혜택을 조회한다
+  - 적용 가능한 혜택과 할인 전 총 주문 금액을 유지하는 Receipt
   - 적용 가능한 혜택을 통해서 할인 금액을 확인한다 
-    - 고정 금액을 할인하는 혜택이 존재한다
-    - 주문한 메뉴의 종류에 따라 할인 금액이 변동되는 혜택이 존재한다 
+    - 증정 메뉴 출력은 적용 가능한 혜택 내부에 PROMOTION_EVENT의 존재 여부로 확인이 가능하다 
+    - OutputView --> Receipt (PROMOTION_EVENT가 존재하는 지 여부를 반환하여 OutputView는 증정 메뉴 출력 여부를 결정한다)
+  - 적용 가능한 혜택을 통해서 할인 받는 금액을 확인하다
+    - 각 할인 별로 금액을 유지하고 있어야 한다 EventStatus(EnumMap<DICOUNT_TYPE, 금액>) 이를 OutputView에게 전달해야 한다
+    - 각 할인의 합(= 총혜택 금액)을 OutputView에게 전달한다 (할인들의 합은 EventStatus의 역할)
+  - 할인 후 예상 결제 금액
+    - 할인의 합을 EventStatus로 부터 조회한다 
+    - PROMOTION_EVENT으로 증정된 경우 25000원을 차감된 값을 OutputView에게 전달해야 한다
+      - EnumMap DISCOUNT_TYPE에 PROMOTION_EVENT가 존재하는 경우
+    - PROMOTION_EVENT가 적용되지 않은 경우 할인의 합을 그대로 OutputView에게 전달해야 한다 
+      - EnumMap DISCOUNT_TYPE에 PROMOTION_EVENT가 존재하지 않는 경우 
 
 3. 할인 금액을 통해 새해 이벤트 배지를 확인할 수 있다 
+  - 총혜택 금액에 따라 이벤트 배지를 부여한다 
   - 차등적으로 이벤트 배지를 부여한다 
 
 
@@ -247,7 +257,7 @@ Day를 넘겨주면 할인 적용 할 수 있는 이벤트를 List<>로 반환�
 예외, 성공 케이스를 기준으로 하나의 검증을 마무리 지었다면 해당 검증에 대한 테스트를 바로 바로 진행하는 것이 좋겠다는 생각이 들었다  
 ```
 할인 전 총 주문 금액을 출력한다
-- AcceptedOrders가 유지하는 Order은 MenuProduct, Quantity를 유지한다
+- [x] AcceptedOrders가 유지하는 Order은 MenuProduct, Quantity를 유지한다
   - MenuProduct의 price를 조회한다
   - price와 Quantity를 곱한다 
   - 곱한 값들을 모두 합한다 

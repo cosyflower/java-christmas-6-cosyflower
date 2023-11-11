@@ -1,8 +1,7 @@
-package christmas.domain;
+package christmas.dto;
 
 import static org.assertj.core.api.Assertions.assertThatCode;
 
-import christmas.dto.OrderDTO;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;

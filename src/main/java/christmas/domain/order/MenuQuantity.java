@@ -1,5 +1,6 @@
 package christmas.domain.order;
 
+import christmas.domain.util.Util;
 import java.util.Objects;
 
 public class MenuQuantity {
@@ -7,7 +8,7 @@ public class MenuQuantity {
 
     private MenuQuantity(String uncheckedValue) {
         validate(uncheckedValue);
-        this.menuQuantity = Integer.parseInt(uncheckedValue);
+        this.menuQuantity = Util.convertStringToInt(uncheckedValue);
     }
 
     private void validate(String menuQuantity) {

@@ -48,7 +48,7 @@ public enum MenuProduct {
     public static MenuProduct findMenuProductByName(String name) {
         // name이 존재하지 않는 경우 Exception 발생한다
         return Optional.ofNullable(menuProductMap.get(MenuName.from(name)))
-                .orElseThrow(() -> new IllegalArgumentException("유효하지 않는 주문입니다"));
+                .orElseThrow(() -> new IllegalArgumentException("(존재하지 않는 메뉴) 유효하지 않는 주문입니다"));
     }
 
     public MenuType getMenuType() {

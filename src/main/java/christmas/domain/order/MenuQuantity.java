@@ -19,7 +19,7 @@ public class MenuQuantity {
 
     private void isStartsWithZero(String menuQuantity) {
         if (menuQuantity.startsWith("0")) {
-            throw new IllegalArgumentException("유효하지 않은 주문입니다");
+            throw new IllegalArgumentException("(0으로 시작한 수) 유효하지 않은 주문입니다");
         }
     }
 

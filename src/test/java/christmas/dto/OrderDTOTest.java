@@ -26,7 +26,7 @@ public class OrderDTOTest {
         void 형식에_맞지_않는_경우_예외(String nonPatternOrder) {
             Assertions.assertThatThrownBy(() -> new OrderDTO(nonPatternOrder))
                     .isInstanceOf(IllegalArgumentException.class)
-                    .hasMessageContaining("유효하지 않은 주문입니다");
+                    .hasMessageContaining("형식");
         }
 
         @ParameterizedTest(name = "형식에 맞게 입력했으나 복수의 메뉴를 주문시 구분자를 활용하지 않은 경우")
@@ -34,15 +34,15 @@ public class OrderDTOTest {
         void 구분자가_없는_경우_예외(String nonSeparator) {
             Assertions.assertThatThrownBy(() -> new OrderDTO(nonSeparator))
                     .isInstanceOf(IllegalArgumentException.class)
-                    .hasMessageContaining("유효하지 않은 주문입니다");
+                    .hasMessageContaining("형식");
         }
 
         @ParameterizedTest(name = "형식에 맞게 입력했으나 복수의 메뉴를 주문시 정해진 구분자 콤마(',')가 아닌 다른 문자를 명시한 경우")
         @ValueSource(strings = {"양송이스프-2|스테이크-3", "스테이크-3:양송이스프-2", "양송이스프-2 스테이크-3"})
-        void 주문_형식에_맞게_입력하면_성공(String wrongSeparator) {
+        void 주문_형식에_맞게_입력했으나_콤마를_사용하지_않으면_예외(String wrongSeparator) {
             Assertions.assertThatThrownBy(() -> new OrderDTO(wrongSeparator))
                     .isInstanceOf(IllegalArgumentException.class)
-                    .hasMessageContaining("유효하지 않은 주문입니다");
+                    .hasMessageContaining("형식");
         }
     }
 

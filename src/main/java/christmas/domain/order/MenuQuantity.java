@@ -27,6 +27,10 @@ public class MenuQuantity {
         return new MenuQuantity(unconvertedMenuQuantity);
     }
 
+    public int getMenuQuantity() {
+        return menuQuantity;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

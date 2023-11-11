@@ -1,6 +1,6 @@
 package christmas.domain.discount;
 
-public class DiscountPrice {
+public class DiscountPrice { // 할인 금액, 할인 금액의 합
     private final int discountPriceValue;
 
     private DiscountPrice(int discountPriceValue) {

@@ -1,5 +1,6 @@
 package christmas.domain.menu;
 
+import christmas.domain.order.MenuQuantity;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Map;
@@ -61,5 +62,9 @@ public enum MenuProduct {
 
     public MenuPrice getPrice() {
         return price;
+    }
+
+    public int generateTotalPrice(MenuQuantity menuQuantity) {
+        return price.multiplyQuantity(menuQuantity);
     }
 }

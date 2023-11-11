@@ -19,6 +19,10 @@ public class Order {
         return new Order(menuAndNumber);
     }
 
+    public int getEachOrderTotalPrice() {
+        return menuProduct.generateTotalPrice(menuQuantity);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

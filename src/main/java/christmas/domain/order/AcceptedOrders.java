@@ -32,6 +32,13 @@ public class AcceptedOrders {
         return new AcceptedOrders(acceptedOrders);
     }
 
+    public int checkTotalPriceWithoutDiscount() {
+        // 할인 전 총 결제 금액
+        return acceptedOrders.stream()
+                .mapToInt(Order::getEachOrderTotalPrice)
+                .sum();
+    }
+
     public List<Order> getAcceptedOrders() {
         return Collections.unmodifiableList(acceptedOrders);
     }

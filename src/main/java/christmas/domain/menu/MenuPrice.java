@@ -1,5 +1,6 @@
 package christmas.domain.menu;
 
+import christmas.domain.order.MenuQuantity;
 import java.util.Objects;
 
 public class MenuPrice {
@@ -11,6 +12,10 @@ public class MenuPrice {
 
     public static MenuPrice from(int price) {
         return new MenuPrice(price);
+    }
+
+    public int multiplyQuantity(MenuQuantity menuQuantity) {
+        return price * menuQuantity.getMenuQuantity();
     }
 
     public int getPrice() {
@@ -33,4 +38,6 @@ public class MenuPrice {
     public int hashCode() {
         return Objects.hash(getPrice());
     }
+
+
 }

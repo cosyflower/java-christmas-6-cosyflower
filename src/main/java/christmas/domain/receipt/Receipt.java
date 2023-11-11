@@ -1,4 +1,4 @@
-package christmas;
+package christmas.domain.receipt;
 
 public class Receipt {
     // 영수증은 할인 전 전체 가격, 할인 적용 가능한 이벤트 리스트를 유지한다

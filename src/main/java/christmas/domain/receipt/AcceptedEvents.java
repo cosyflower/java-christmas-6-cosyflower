@@ -1,4 +1,4 @@
-package christmas;
+package christmas.domain.receipt;
 
 import christmas.domain.discount.DiscountType;
 import java.util.ArrayList;

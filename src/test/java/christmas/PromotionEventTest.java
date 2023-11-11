@@ -7,7 +7,9 @@ import static christmas.domain.discount.DiscountType.WEEKDAY_DISCOUNT;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import christmas.domain.Day;
+import christmas.domain.receipt.AcceptedEvents;
 import christmas.domain.discount.DiscountType;
+import christmas.domain.receipt.TotalPrice;
 import java.util.List;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -28,8 +30,6 @@ public class PromotionEventTest {
         Day everyDay = Day.from(24);
         List<DiscountType> discountTypes = DiscountType.checkValidDiscountType(everyDay);
 
-        // Receipt를 생성한다
-        // 총 결제 금액
         TotalPrice totalPrice = TotalPrice.from(result);
         AcceptedEvents acceptedEvents = AcceptedEvents.from(discountTypes, totalPrice);
 

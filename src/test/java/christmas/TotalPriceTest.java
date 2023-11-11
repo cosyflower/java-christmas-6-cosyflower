@@ -1,5 +1,6 @@
 package christmas;
 
+import christmas.domain.receipt.TotalPrice;
 import christmas.domain.order.AcceptedOrders;
 import christmas.domain.order.Order;
 import christmas.domain.util.Mapper;

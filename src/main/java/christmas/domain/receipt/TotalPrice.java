@@ -1,4 +1,4 @@
-package christmas;
+package christmas.domain.receipt;
 
 public class TotalPrice {
     private final int totalPrice;

@@ -1,6 +1,8 @@
 package christmas.domain.receipt;
 
 public class TotalPrice {
+    public static final int LIMIT = 10000;
+    public static final int PROMOTION_CRITERIA = 120000;
     private final int totalPrice;
 
     private TotalPrice(int totalPrice) {
@@ -16,7 +18,14 @@ public class TotalPrice {
     }
 
     public boolean isLowerThanPromotionCriteria() {
-        if (totalPrice < 120000) {
+        if (totalPrice < PROMOTION_CRITERIA) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isLowerThanLimit() {
+        if (totalPrice < LIMIT) {
             return true;
         }
         return false;

@@ -91,8 +91,10 @@
 
 2. 확인된 혜택을 통해 주문한 메뉴로부터 할인 금액을 확인할 수 있다
   - 적용 가능한 혜택과 할인 전 총 주문 금액을 유지하는 Receipt (증정 여부까지 확인이 된 상황)
-  - Receipt의 TotalPrice를 확인한다
+  - Receipt의 TotalPrice를 확인한다 (Day, 총 주문 금액 정보가 필요하다)
     - 1만원보다 적으면 AcceptedOrders를 초기화 해야 한다
+    - 생성자에서 검증을 진행한다
+    
   - 적용 가능한 혜택을 통해서 할인 금액을 확인한다 
     - 증정 메뉴 출력은 적용 가능한 혜택 내부에 PROMOTION_EVENT의 존재 여부로 확인이 가능하다 
     - OutputView --> Receipt (PROMOTION_EVENT가 존재하는 지 여부를 반환하여 OutputView는 증정 메뉴 출력 여부를 결정한다)

@@ -13,7 +13,7 @@ public class AcceptedEvents {
         this.acceptedEvents = new ArrayList<>(checkPromotion(acceptedEvents, totalPrice));
     }
 
-    public static AcceptedEvents from(List<DiscountType> discountTypes, TotalPrice totalPrice) {
+    public static AcceptedEvents of(List<DiscountType> discountTypes, TotalPrice totalPrice) {
         return new AcceptedEvents(discountTypes, totalPrice);
     }
 
@@ -26,7 +26,7 @@ public class AcceptedEvents {
         return discountTypes;
     }
 
-    public List<DiscountType> getAcceptedEvents() {
+    public List<DiscountType> getDiscountTypes() {
         return Collections.unmodifiableList(acceptedEvents);
     }
 }

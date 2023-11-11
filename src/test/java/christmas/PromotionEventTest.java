@@ -31,9 +31,9 @@ public class PromotionEventTest {
         List<DiscountType> discountTypes = DiscountType.checkValidDiscountType(everyDay);
 
         TotalPrice totalPrice = TotalPrice.from(result);
-        AcceptedEvents acceptedEvents = AcceptedEvents.from(discountTypes, totalPrice);
+        AcceptedEvents acceptedEvents = AcceptedEvents.of(discountTypes, totalPrice);
 
-        assertThat(acceptedEvents.getAcceptedEvents()).containsExactly(WEEKDAY_DISCOUNT, CHRISTMAS_DISCOUNT,
+        assertThat(acceptedEvents.getDiscountTypes()).containsExactly(WEEKDAY_DISCOUNT, CHRISTMAS_DISCOUNT,
                 PROMOTION_DISCOUNT, SPECIAL_DISCOUNT);
     }
 
@@ -44,9 +44,9 @@ public class PromotionEventTest {
         List<DiscountType> discountTypes = DiscountType.checkValidDiscountType(everyDay);
 
         TotalPrice totalPrice = TotalPrice.from(result);
-        AcceptedEvents acceptedEvents = AcceptedEvents.from(discountTypes, totalPrice);
+        AcceptedEvents acceptedEvents = AcceptedEvents.of(discountTypes, totalPrice);
 
-        assertThat(acceptedEvents.getAcceptedEvents()).containsExactly(WEEKDAY_DISCOUNT, CHRISTMAS_DISCOUNT,
+        assertThat(acceptedEvents.getDiscountTypes()).containsExactly(WEEKDAY_DISCOUNT, CHRISTMAS_DISCOUNT,
                 SPECIAL_DISCOUNT);
     }
 }

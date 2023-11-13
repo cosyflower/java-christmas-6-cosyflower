@@ -17,6 +17,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -85,6 +87,7 @@ public class DiscountCheckerTest {
             System.out.println("discountType = " + discountType);
             System.out.println(eventStatus.get(discountType).getDiscountPriceValue());
         }
+        // Assertions 추가
     }
 
     @ParameterizedTest
@@ -101,5 +104,39 @@ public class DiscountCheckerTest {
             System.out.println("discountType = " + discountType);
             System.out.println(eventStatus.get(discountType).getDiscountPriceValue());
         }
+        // Assertions 추가
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {23, 24, 25, 28})
+    void 이벤트를_적용하지_못하는_금액_확인(int day) {
+        // Assertions 추가
+        AcceptedOrders acceptedOrders = AcceptedOrders.from(
+                Arrays.asList(Order.from("아이스크림-1")));
+        EventReservation eventReservation = EventReservation.of(Day.from(day), acceptedOrders);
+
+        EventStatus allDiscountPrice = DiscountChecker.findAllDiscountPrice(eventReservation);
+        Map<DiscountType, DiscountPrice> eventStatus = allDiscountPrice.getEventStatus();
+
+        for (DiscountType discountType : eventStatus.keySet()) {
+            System.out.println("discountType = " + discountType);
+            System.out.println(eventStatus.get(discountType).getDiscountPriceValue());
+        }
+        // Assertions 추가
+    }
+
+    @Test
+    void 혜택_금액_그리고_실제_할인_금액_확인() {
+        // 혜택 금액을 확인한다
+        AcceptedOrders acceptedOrders = AcceptedOrders.from(
+                Arrays.asList(Order.from("양송이스프-3"), Order.from("티본스테이크-2"), Order.from("아이스크림-1")));
+        EventReservation eventReservation = EventReservation.of(Day.from(25), acceptedOrders);
+        EventStatus allDiscountPrice = DiscountChecker.findAllDiscountPrice(eventReservation);
+
+        int actualDiscountAmount = allDiscountPrice.getActualDiscountAmount();
+        int benefitAmount = allDiscountPrice.getBenefitAmount();
+
+        Assertions.assertThat(actualDiscountAmount).isEqualTo(6423);
+        Assertions.assertThat(benefitAmount).isEqualTo(31423);
     }
 }

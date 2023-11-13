@@ -28,7 +28,7 @@ public class TotalPriceTest {
         );
 
         TotalPrice totalPrice = TotalPrice.from(acceptedOrders.checkTotalPriceWithoutDiscount());
-        Assertions.assertThat(totalPrice.getTotalPrice()).isEqualTo(total);
+        Assertions.assertThat(totalPrice.getTotalPriceValue()).isEqualTo(total);
     }
 
     private static Stream<Arguments> generateAcceptedOrderAndTotalPrice() {

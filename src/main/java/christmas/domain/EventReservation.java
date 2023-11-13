@@ -43,4 +43,8 @@ public class EventReservation {
     public boolean isSpecialDay() {
         return day.isSpecialDay();
     }
+
+    public int getTotalPriceWithoutDiscount() {
+        return acceptedOrders.checkTotalPriceWithoutDiscount();
+    }
 }

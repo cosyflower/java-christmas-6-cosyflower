@@ -1,33 +1,29 @@
 package christmas.domain.receipt;
 
 public class TotalPrice {
-    public static final int LIMIT = 10000;
-    public static final int PROMOTION_CRITERIA = 120000;
-    private final int totalPrice;
+    private final int totalPriceValue;
 
     private TotalPrice(int totalPrice) {
-        this.totalPrice = totalPrice;
+        this.totalPriceValue = totalPrice;
     }
 
     public static TotalPrice from(int totalPrice) {
         return new TotalPrice(totalPrice);
     }
 
-    public int getTotalPrice() {
-        return totalPrice;
+    public int getTotalPriceValue() {
+        return totalPriceValue;
     }
 
-    public boolean isLowerThanPromotionCriteria() {
-        if (totalPrice < PROMOTION_CRITERIA) {
-            return true;
-        }
-        return false;
+    public boolean isBetweenPrice(int minInclusive, int maxExclusive) {
+        return isSameAndHigherThan(minInclusive) && isLowerThan(maxExclusive);
     }
 
-    public boolean isLowerThanLimit() {
-        if (totalPrice < LIMIT) {
-            return true;
-        }
-        return false;
+    private boolean isSameAndHigherThan(int otherValue) {
+        return totalPriceValue >= otherValue;
+    }
+
+    private boolean isLowerThan(int otherValue) {
+        return totalPriceValue < otherValue;
     }
 }

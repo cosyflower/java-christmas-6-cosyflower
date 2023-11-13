@@ -16,5 +16,6 @@ public class AcceptedOrdersTest {
 
         int specificMenuQuantity = acceptedOrders.getSpecificMenuQuantity(MenuType.MAIN_MENU);// 티본만
         System.out.println("specificMenuQuantity = " + specificMenuQuantity);
+        // Assertions 추가
     }
 }

@@ -1,5 +1,6 @@
 package christmas.domain;
 
+import christmas.domain.receipt.TotalPrice;
 import christmas.domain.util.Constants;
 import christmas.domain.discount.DiscountPrice;
 import java.util.Arrays;
@@ -13,20 +14,20 @@ public enum EventBadge {
     ;
 
     private final String description;
-    private final Predicate<DiscountPrice> discountPriceCriteria;
+    private final Predicate<TotalPrice> discountPriceCriteria; // TotalPrice로 변경하기
 
 
     EventBadge(String description,
-               Predicate<DiscountPrice> discountPriceCriteria) {
+               Predicate<TotalPrice> discountPriceCriteria) {
         this.description = description;
         this.discountPriceCriteria = discountPriceCriteria;
     }
 
-    public static EventBadge findEventBadgeByDiscountPrice(DiscountPrice discountPrice) {
+    public static EventBadge findEventBadgeByDiscountPrice(TotalPrice totalPrice) {
         // 범위에 만족하면
         // 해당 배지를 반환한다
         return Arrays.stream(values())
-                .filter((badge) -> badge.discountPriceCriteria.test(discountPrice))
+                .filter((badge) -> badge.discountPriceCriteria.test(totalPrice))
                 .findFirst()
                 .orElseThrow(IllegalStateException::new);
     }

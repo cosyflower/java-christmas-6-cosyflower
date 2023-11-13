@@ -14,16 +14,4 @@ public class DiscountPrice { // 할인 금액, 할인 금액의 합
     public int getDiscountPriceValue() {
         return discountPriceValue;
     }
-
-    public boolean isBetweenPrice(int minInclusive, int maxExclusive) {
-        return isSameAndHigherThan(minInclusive) && isLowerThan(maxExclusive);
-    }
-
-    private boolean isSameAndHigherThan(int otherValue) {
-        return discountPriceValue >= otherValue;
-    }
-
-    private boolean isLowerThan(int otherValue) {
-        return discountPriceValue < otherValue;
-    }
 }

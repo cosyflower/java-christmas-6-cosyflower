@@ -16,7 +16,7 @@ public enum MenuProduct {
 
     // 메인 음식
     T_BONE_STEAK(MenuType.MAIN_MENU, MenuName.from("티본스테이크"), MenuPrice.from(55000)),
-    BARBECUE_RIB(MenuType.MAIN_MENU, MenuName.from("바베큐립"), MenuPrice.from(54000)),
+    BARBECUE_RIB(MenuType.MAIN_MENU, MenuName.from("바비큐립"), MenuPrice.from(54000)),
     SEAFOOD_PASTA(MenuType.MAIN_MENU, MenuName.from("해산물파스타"), MenuPrice.from(35000)),
     CHRISTMAS_PASTA(MenuType.MAIN_MENU, MenuName.from("크리스마스파스타"), MenuPrice.from(25000)),
 

@@ -275,7 +275,7 @@
 - 12월 이벤트 배지
 ```
 ### 순서 
-1. 방문 날짜를 입력받는다 - RegisterDayController
+1. 방문 날짜를 입력받는다 - RegisterDayController 
    - DayDTO
 2. 주문할 메뉴와 개수를 입력받는다 - RegisterOrderController
    - OrderDTO

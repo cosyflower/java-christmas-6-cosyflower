@@ -1,7 +1,5 @@
 package christmas.domain.order;
 
-import static christmas.domain.menu.MenuProduct.findMenuProductByName;
-
 import christmas.domain.menu.MenuProduct;
 import christmas.domain.menu.MenuType;
 import java.util.Objects;
@@ -10,9 +8,9 @@ public class Order {
     private final MenuProduct menuProduct; // 메뉴
     private final MenuQuantity menuQuantity; // 수량
 
-    private Order(String menuAndNumber) {// "양송이스프-2" 가 들어온 상황
+    private Order(String menuAndNumber) { // "양송이스프-2" 가 들어온 상황
         String[] split = menuAndNumber.split("-");
-        this.menuProduct = findMenuProductByName(split[0]);
+        this.menuProduct = MenuProduct.findMenuProductByName(split[0]);
         this.menuQuantity = MenuQuantity.from(split[1]);
     }
 

@@ -20,7 +20,7 @@ public class MapperTest {
         void 존재하지_않는_메뉴_예외(String notInMenu) {
             Assertions.assertThatCode(() -> {
                         OrderDTO orderDTO = new OrderDTO(notInMenu);
-                        AcceptedOrders acceptedOrders = Mapper.toMenuType(orderDTO);
+                        AcceptedOrders acceptedOrders = Mapper.toAcceptedOrders(orderDTO);
                     }).isInstanceOf(IllegalArgumentException.class)
                     .hasMessageContaining("유효하지");
         }
@@ -29,7 +29,7 @@ public class MapperTest {
         @ValueSource(strings = {"양송이스프-2", "티본스테이크-3"})
         void orderDTO_To_AcceptedOrders(String input) {
             OrderDTO orderDTO = new OrderDTO(input);
-            AcceptedOrders acceptedOrders = Mapper.toMenuType(orderDTO);
+            AcceptedOrders acceptedOrders = Mapper.toAcceptedOrders(orderDTO);
 
             assertThat(acceptedOrders.getAcceptedOrders()).contains(Order.from(input));
         }
@@ -43,7 +43,7 @@ public class MapperTest {
         void 중복하는_메뉴를_입력하면_예외(String duplicatedMenu) {
             Assertions.assertThatCode(() -> {
                         OrderDTO orderDTO = new OrderDTO(duplicatedMenu);
-                        AcceptedOrders acceptedOrders = Mapper.toMenuType(orderDTO);
+                        AcceptedOrders acceptedOrders = Mapper.toAcceptedOrders(orderDTO);
                     }).isInstanceOf(IllegalArgumentException.class)
                     .hasMessageContaining("유효하지 않는 주문입니다");
         }

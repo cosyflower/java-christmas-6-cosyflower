@@ -41,7 +41,7 @@ public class DiscountCheckerTest {
     @MethodSource("generateOrdersAndDiscountTypes")
     void flow(int day, DiscountType... discountTypes) {
         AcceptedOrders acceptedOrders = AcceptedOrders.from(
-                Arrays.asList(Order.from("바베큐립-3"), Order.from("초코케이크-1")));
+                Arrays.asList(Order.from("바비큐립-3"), Order.from("초코케이크-1")));
         EventReservation eventReservation = EventReservation.of(Day.from(day), acceptedOrders);
 
         List<DiscountType> validDiscountTypes = DiscountChecker.checkValidDiscountTypes(eventReservation);

@@ -32,7 +32,7 @@ public class EventBadgeTest {
     public static class TotalPriceTest {
         private AcceptedOrders generateAcceptedOrders(String input) {
             OrderDTO orderDTO = new OrderDTO(input);
-            AcceptedOrders acceptedOrders = Mapper.toMenuType(orderDTO);
+            AcceptedOrders acceptedOrders = Mapper.toAcceptedOrders(orderDTO);
             return acceptedOrders;
         }
 

@@ -46,9 +46,11 @@ public class Day {
         return dayValue % 7 == remainValue;
     }
 
-
-
     public int getDay() {
         return dayValue;
+    }
+
+    public int calculateDay() {
+        return dayValue - 1;
     }
 }

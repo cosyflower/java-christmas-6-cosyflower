@@ -1,6 +1,5 @@
 package christmas.domain;
 
-import christmas.domain.discount.DiscountPrice;
 import christmas.domain.receipt.TotalPrice;
 import java.util.stream.Stream;
 import org.assertj.core.api.Assertions;
@@ -17,10 +16,10 @@ public class EventBadgeTest {
         );
     }
 
-    @ParameterizedTest(name = "할인 적용 전 총 구매 금액 : {0} 이벤트 배지 결과 : {1}")
+    @ParameterizedTest(name = "혜택 금액 : {0} 이벤트 배지 결과 : {1}")
     @MethodSource("totalPriceAndBadge")
-    void createEventBadge(int totalDiscountPrice, EventBadge eventBadge) {
-        TotalPrice totalPrice = TotalPrice.from(totalDiscountPrice);
+    void createEventBadge(int benefitAmount, EventBadge eventBadge) {
+        TotalPrice totalPrice = TotalPrice.from(benefitAmount);
         EventBadge eventBadgeByDiscountPrice = EventBadge.findEventBadgeByDiscountPrice(totalPrice);
 
         Assertions.assertThat(eventBadgeByDiscountPrice).isEqualTo(eventBadge);

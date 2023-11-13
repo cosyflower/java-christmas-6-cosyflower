@@ -3,6 +3,7 @@ package christmas.domain.order;
 import christmas.domain.menu.MenuProduct;
 import christmas.domain.menu.MenuType;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -18,6 +19,22 @@ public class AcceptedOrders {
 
     private void validate(List<Order> acceptedOrders) {
         isDuplicated(acceptedOrders);
+        hasOnlyDrinks(acceptedOrders);
+        hasOutOfMaximumOrders(acceptedOrders);
+    }
+
+    private void hasOnlyDrinks(List<Order> acceptedOrders) {
+        if (acceptedOrders.stream().allMatch(order -> order.hasSameMenuType(MenuType.DRINK))) {
+            throw new IllegalArgumentException("(음료만 주문) 유효하지 않는 주문입니다");
+        }
+    }
+
+    private void hasOutOfMaximumOrders(List<Order> acceptedOrders) {
+        if (acceptedOrders.stream()
+                .mapToInt(order -> order.getMenuQuantity().getMenuQuantityValue())
+                .sum() > 20) {
+            throw new IllegalArgumentException("(최대 20개를 넘음) 유효하지 않는 주문입니다");
+        }
     }
 
     private void isDuplicated(List<Order> acceptedOrders) {

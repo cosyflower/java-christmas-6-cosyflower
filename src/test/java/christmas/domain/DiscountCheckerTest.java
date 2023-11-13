@@ -50,20 +50,9 @@ public class DiscountCheckerTest {
         assertThat(validDiscountTypes).containsExactly(discountTypes);
     }
 
-    private static Stream<Arguments> generateOrderWithoutPromotion() {
-        return Stream.of(
-                Arguments.of(30, new DiscountType[]{WEEKEND_DISCOUNT, PROMOTION_DISCOUNT}),
-                Arguments.of(24, new DiscountType[]{WEEKDAY_DISCOUNT, CHRISTMAS_DISCOUNT,
-                        PROMOTION_DISCOUNT, SPECIAL_DISCOUNT}),
-                Arguments.of(23, new DiscountType[]{WEEKEND_DISCOUNT, CHRISTMAS_DISCOUNT,
-                        PROMOTION_DISCOUNT}),
-                Arguments.of(21, new DiscountType[]{WEEKDAY_DISCOUNT, CHRISTMAS_DISCOUNT,
-                        PROMOTION_DISCOUNT})
-        );
-    }
 
     @ParameterizedTest
-    @MethodSource("generateOrderWithoutPromotion")
+    @MethodSource("generateOrdersAndDiscountTypes")
     void 프로모션_없는_경우_검증(int day, DiscountType... discountTypes) {
         AcceptedOrders acceptedOrders = AcceptedOrders.from(
                 Arrays.asList(Order.from("양송이스프-1")));
@@ -75,7 +64,7 @@ public class DiscountCheckerTest {
 
     @ParameterizedTest
     @ValueSource(ints = {23, 24, 25, 28})
-    void 포로모션_있는_할인별_금액_확인(int day) {
+    void 포로모션_있는_할인별_금액_확인(int day) { // 25000원 이어야 한다
         AcceptedOrders acceptedOrders = AcceptedOrders.from(
                 Arrays.asList(Order.from("티본스테이크-2"), Order.from("초코케이크-1")));
         EventReservation eventReservation = EventReservation.of(Day.from(day), acceptedOrders);
@@ -92,7 +81,7 @@ public class DiscountCheckerTest {
 
     @ParameterizedTest
     @ValueSource(ints = {23, 24, 25, 28})
-    void 프로모션_없이_할인별_금액_확인(int day) {
+    void 프로모션_없이_할인별_금액_확인(int day) { // 프로모션 금액이 0이여야 한다
         AcceptedOrders acceptedOrders = AcceptedOrders.from(
                 Arrays.asList(Order.from("티본스테이크-2"), Order.from("아이스크림-1")));
         EventReservation eventReservation = EventReservation.of(Day.from(day), acceptedOrders);

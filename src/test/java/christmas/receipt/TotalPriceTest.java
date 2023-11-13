@@ -1,4 +1,4 @@
-package christmas;
+package christmas.receipt;
 
 import christmas.domain.receipt.TotalPrice;
 import christmas.domain.order.AcceptedOrders;

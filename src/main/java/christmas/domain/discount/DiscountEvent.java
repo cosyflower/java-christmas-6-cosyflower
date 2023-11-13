@@ -1,6 +1,7 @@
 package christmas.domain.discount;
 
 import christmas.domain.EventReservation;
+import christmas.domain.menu.MenuProduct;
 import christmas.domain.menu.MenuType;
 import java.util.function.Function;
 import java.util.function.Predicate;

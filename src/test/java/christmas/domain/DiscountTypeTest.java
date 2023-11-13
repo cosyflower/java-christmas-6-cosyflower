@@ -19,7 +19,7 @@ public class DiscountTypeTest {
                 Order.from("티본스테이크-3")));
 
         EventReservation eventReservation = EventReservation.of(day, acceptedOrders);
-        List<DiscountType> discountTypes = DiscountChecker.checkValidDiscountType(eventReservation);
+        List<DiscountType> discountTypes = DiscountChecker.checkValidDiscountTypes(eventReservation);
 
         Assertions.assertThat(discountTypes).containsExactly(DiscountType.WEEKEND_DISCOUNT,
                 DiscountType.CHRISTMAS_DISCOUNT, DiscountType.PROMOTION_DISCOUNT);

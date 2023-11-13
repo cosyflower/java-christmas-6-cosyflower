@@ -84,9 +84,9 @@
     
 ```
 제한 조건을 확인해야 한다
-- 이벤트 적용 가능한 금액은 총 주문 금액을 기준으로 1만원 이상이다 Receipt 에서 확인 
-- 음료만 주문하는 것은 불가능하다 - AcceptedOrders 검증~ 
-- 메뉴는 한 번에 최대 20개까지만 주문이 가능합니다 - AcceptedOrders 검증 ~
+- [x] 이벤트 적용 가능한 금액은 총 주문 금액을 기준으로 1만원 이상이다 Receipt 에서 확인 
+- [ ] 음료만 주문하는 것은 불가능하다 - AcceptedOrders 검증~ 
+- [ ] 메뉴는 한 번에 최대 20개까지만 주문이 가능합니다 - AcceptedOrders 검증 ~
 ```
 
 2. 확인된 혜택을 통해 주문한 메뉴로부터 할인 금액을 확인할 수 있다
@@ -99,11 +99,13 @@
     - 증정 메뉴 출력은 적용 가능한 혜택 내부에 PROMOTION_EVENT의 존재 여부로 확인이 가능하다 
     - OutputView --> Receipt (PROMOTION_EVENT가 존재하는 지 여부를 반환하여 OutputView는 증정 메뉴 출력 여부를 결정한다)
   
-  - 적용 가능한 혜택을 통해서 할인 받는 금액을 확인하다
-    - 각 할인 별로 금액을 유지하고 있어야 한다 EventStatus(EnumMap<DICOUNT_TYPE, 금액>) 이를 OutputView에게 전달해야 한다
-    - AcceptedOrders (수용한 주문들) 을 가지고 있어야 한다. 주문 정보를 가지고 오기 위함이다 
-      - TotalPrice 필요한지 생각하기 
-    - 각 할인의 합(= 총혜택 금액)을 OutputView에게 전달한다 (할인들의 합은 EventStatus의 역할)
+  - 적용 가능한 혜택을 통해서 할인 받는 금액을 확인하다 (진행)
+    - 각 할인 별로 금액을 유지하고 있어야 한다 EventStatus(EnumMap<DISCOUNT_TYPE, 금액>) 이를 OutputView에게 전달해야 한다
+      - AcceptedOrders (수용한 주문들) 을 가지고 있어야 한다. 주문 정보를 가지고 오기 위함이다
+        - Quantity 정보가 필요하다 
+        - DISCOUNT_TYPE의 DISCOUNT_EVENT 할인을 얻을 수 있음
+      - 각 할인의 합(= 총혜택 금액)을 OutputView에게 전달한다 (할인들의 합은 EventStatus의 역할)
+  
   - 할인 후 예상 결제 금액
     - 할인의 합을 EventStatus로 부터 조회한다 
     - PROMOTION_EVENT으로 증정된 경우 25000원을 차감된 값을 OutputView에게 전달해야 한다
@@ -170,9 +172,7 @@
   - 할인 전 최종 금액을 테스트 인자로 전달한다 (인자 값)
     - 할인 받기 전 총 주문 금액이 120000원 이상이 경우
     - 샴페인 (25,000원) 을 증정한다
-
-
-
+    
 - 혜택 내역을 출력한다 
   - 적용 가능한 혜택을 출력한다
   - 적용하지 못하는 혜택은 출력하지 않는다 
@@ -192,7 +192,6 @@
   - 5000원 - 9999원: 별
   - 1만원 이상 - 19999원: 트리
   - 2만원 이상 ~ : 산타 
-  
 
 
 ---
@@ -276,9 +275,11 @@ Day를 넘겨주면 할인 적용 할 수 있는 이벤트를 List<>로 반환�
   - price와 Quantity를 곱한다 
   - 곱한 값들을 모두 합한다 
 
-적용 가능한 이벤트를 가지고 온다 (-> DiscountType (Day) Day 정보를 확인해서 가능한 이벤트 List<DiscountType(이벤트 관련 정보)>을 반환한다
-  - PromotionEventTest (TotalPrice를 생성하고 AcceptedEvents 를 생성하는 순간 12만원 기준을 확인해서 증정 이벤트 여부를 결정한다)
-  - 증정 이벤트만 할인 전 총 금액으로 적용 여부를 가를 수 있기 떄문
+적용 가능한 이벤트를 가지고 온다 (DiscountChecker - Reservation)
+- Reservation을 임의로 생성한다
+- 적용 가능한 이벤트를 확인한다
+  - Promotion 이벤트의 경우 적용이 가능한 이벤트이다
+  - 적용은 가능하지만 금액 기준을 넘지 못하면 0원 할인이다 
 
 제한 조건을 검증
   - 이벤트 적용 가능한 금액은 총 주문 금액을 기준으로 1만원 이상이다

@@ -1,6 +1,5 @@
 package christmas.domain.discount;
 
-import christmas.domain.Day;
 import christmas.domain.EventReservation;
 
 public enum DiscountType { // 이벤트 관련 총 정보

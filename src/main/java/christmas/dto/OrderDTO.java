@@ -23,7 +23,7 @@ public class OrderDTO {
 
     private void isOrderPattern(String order) {
         if (Constants.ORDER_PATTERN.matcher(order).matches() == false) {
-            throw new IllegalArgumentException("(형식에 맞지 않음) 유효하지 않은 주문입니다.");
+            throw new IllegalArgumentException("유효하지 않은 주문입니다.");
         }
     }
 

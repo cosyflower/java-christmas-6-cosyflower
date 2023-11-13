@@ -1,6 +1,5 @@
 package christmas.view;
 
-import christmas.domain.discount.DiscountEvent;
 import christmas.domain.discount.DiscountPrice;
 import christmas.domain.discount.DiscountType;
 import christmas.domain.order.AcceptedOrders;
@@ -12,8 +11,8 @@ import java.util.List;
 import java.util.Map;
 
 public class OutputView {
-    public void printMessage(String message) {
-        System.out.println(message);
+    public void printErrorMessage(String message) {
+        System.out.println("[ERROR] " + message + " 다시 입력해 주세요.");
     }
 
     public void printStartMessage() {

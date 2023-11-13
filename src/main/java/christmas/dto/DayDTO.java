@@ -23,7 +23,7 @@ public class DayDTO {
 
     private void isNumber(String dateDTO) {
         if (Constants.NUMBER_PATTERN.matcher(dateDTO).matches() == false) {
-            throw new IllegalArgumentException("수를 입력하지 않았습니다.");
+            throw new IllegalArgumentException("유효하지 않은 날짜입니다.");
         }
     }
 

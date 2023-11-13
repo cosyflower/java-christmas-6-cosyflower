@@ -1,5 +1,6 @@
 package christmas.system;
 
+import christmas.controller.display.DisplayAcceptedOrdersController;
 import christmas.controller.register.RegisterDayController;
 import christmas.controller.register.RegisterOrderController;
 import christmas.domain.order.AcceptedOrders;
@@ -20,5 +21,7 @@ public class PlannerApplication {
         // 전체 로직의 흐름
         Day process = new RegisterDayController(inputView, outputView).process();
         AcceptedOrders acceptedOrders = new RegisterOrderController(inputView).process();
+
+        new DisplayAcceptedOrdersController(outputView, acceptedOrders).process();
     }
 }

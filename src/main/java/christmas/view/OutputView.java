@@ -27,6 +27,7 @@ public class OutputView {
     }
 
     public void printAcceptedOrders(AcceptedOrders acceptedOrders) {
+        System.out.println("<주문 메뉴>");
         List<Order> orders = acceptedOrders.getAcceptedOrders();
         orders.stream()
                 .forEach(order -> System.out.printf("%s %d%s\n", order.getMenuNameValue(),

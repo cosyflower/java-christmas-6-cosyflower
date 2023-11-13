@@ -40,8 +40,8 @@ public class EventStatus {
         return Collections.unmodifiableMap(eventStatus);
     }
 
-    public boolean hasDiscountPrice(DiscountEvent discountEvent) {
-        return eventStatus.get(discountEvent).getDiscountPriceValue() == 0;
+    public boolean hasDiscountPrice(DiscountType discountType) {
+        return eventStatus.get(discountType).isValidDiscount();
     }
 
     public Map<DiscountType, DiscountPrice> removeNonAppliedDiscount() {

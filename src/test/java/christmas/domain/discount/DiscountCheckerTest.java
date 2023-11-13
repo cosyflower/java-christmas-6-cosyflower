@@ -7,9 +7,6 @@ import static christmas.domain.discount.DiscountType.WEEKDAY_DISCOUNT;
 import static christmas.domain.discount.DiscountType.WEEKEND_DISCOUNT;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import christmas.domain.discount.DiscountChecker;
-import christmas.domain.discount.DiscountPrice;
-import christmas.domain.discount.DiscountType;
 import christmas.domain.order.AcceptedOrders;
 import christmas.domain.order.Order;
 import christmas.domain.receipt.EventStatus;

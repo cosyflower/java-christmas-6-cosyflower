@@ -1,6 +1,6 @@
 package christmas.dto;
 
-import christmas.domain.util.Constants;
+import christmas.util.Constants;
 
 public class OrderDTO {
     private final String menuAndNumber;

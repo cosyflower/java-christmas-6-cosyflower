@@ -1,7 +1,7 @@
 package christmas.domain.discount;
 
-import christmas.domain.reservation.EventReservation;
 import christmas.domain.menu.MenuType;
+import christmas.domain.reservation.EventReservation;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -41,8 +41,7 @@ public enum DiscountEvent { // 유닛 당 할인 금액 or 고정 금액 그리�
         return 0;
     }
 
-    public DiscountPrice applyDiscountPrice(EventReservation eventReservation) { // 할인 금액 확인
-        // 할인 금액을 각각 확인한다
+    public DiscountPrice applyDiscountPrice(EventReservation eventReservation) {
         return discountPriceFunction.apply(eventReservation);
     }
 

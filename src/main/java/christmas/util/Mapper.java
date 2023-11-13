@@ -1,8 +1,8 @@
-package christmas.domain.util;
+package christmas.util;
 
-import christmas.domain.reservation.Day;
 import christmas.domain.order.AcceptedOrders;
 import christmas.domain.order.Order;
+import christmas.domain.reservation.Day;
 import christmas.dto.DayDTO;
 import christmas.dto.OrderDTO;
 import java.util.Arrays;

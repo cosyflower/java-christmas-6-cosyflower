@@ -1,6 +1,6 @@
 package christmas.domain.order;
 
-import christmas.domain.util.Util;
+import christmas.util.Util;
 import java.util.Objects;
 
 public class MenuQuantity {
@@ -32,7 +32,7 @@ public class MenuQuantity {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(Object o) { // 활용되는지 확인
         if (this == o) {
             return true;
         }
@@ -43,7 +43,7 @@ public class MenuQuantity {
         return menuQuantityValue == that.menuQuantityValue;
     }
 
-    @Override
+    @Override // 활용되는지 확인
     public int hashCode() {
         return Objects.hash(menuQuantityValue);
     }

@@ -1,8 +1,8 @@
 package christmas.domain.discount;
 
-import christmas.domain.reservation.EventReservation;
 import christmas.domain.receipt.EventStatus;
 import christmas.domain.receipt.TotalPrice;
+import christmas.domain.reservation.EventReservation;
 import java.util.Arrays;
 import java.util.List;
 

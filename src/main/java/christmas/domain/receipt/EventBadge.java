@@ -1,6 +1,6 @@
 package christmas.domain.receipt;
 
-import christmas.domain.util.Constants;
+import christmas.util.Constants;
 import java.util.Arrays;
 import java.util.function.Predicate;
 

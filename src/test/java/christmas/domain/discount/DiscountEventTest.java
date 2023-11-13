@@ -1,6 +1,5 @@
 package christmas.domain.discount;
 
-import christmas.domain.discount.DiscountEvent;
 import christmas.domain.order.AcceptedOrders;
 import christmas.domain.order.Order;
 import christmas.domain.reservation.Day;

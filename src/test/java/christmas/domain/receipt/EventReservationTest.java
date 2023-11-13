@@ -2,11 +2,11 @@ package christmas.domain.receipt;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import christmas.domain.reservation.Day;
-import christmas.domain.reservation.EventReservation;
 import christmas.domain.menu.MenuType;
 import christmas.domain.order.AcceptedOrders;
 import christmas.domain.order.Order;
+import christmas.domain.reservation.Day;
+import christmas.domain.reservation.EventReservation;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;

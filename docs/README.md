@@ -74,48 +74,7 @@
 ---
 
 ### 흐름 그리고 핵심 기능
-1. 날짜를 통해 적용 가능한 혜택을 확인할 수 있다
-  - 날짜마다 적용되는 혜택 내역이 서로 다르다 
-    - 날짜 정보, 혜택 정보가 존재해야 한다 
-    - --> 혜택에게 날짜를 전달한다 
-    - <-- 적용할 수 있는 혜택을 반환한다
-  - 날짜 정보를 전달했을 때 적용 가능한 혜택을 확인할 수 있다
-    - 복수의 경우도 가능하다
-    
-```
-제한 조건을 확인해야 한다
-- [x] 이벤트 적용 가능한 금액은 총 주문 금액을 기준으로 1만원 이상이다 Receipt 에서 확인 
-- [ ] 음료만 주문하는 것은 불가능하다 - AcceptedOrders 검증~ 
-- [ ] 메뉴는 한 번에 최대 20개까지만 주문이 가능합니다 - AcceptedOrders 검증 ~
-```
 
-2. 확인된 혜택을 통해 주문한 메뉴로부터 할인 금액을 확인할 수 있다
-  - 적용 가능한 혜택과 할인 전 총 주문 금액을 유지하는 Receipt (**증정 여부까지 확인이 된 상황**)
-  - Receipt의 TotalPrice를 확인한다 (Day, 총 주문 금액 정보가 필요하다)
-    - 1만원보다 적으면 AcceptedOrders를 초기화 해야 한다
-    - 생성자에서 검증을 진행한다
-    
-  - 적용 가능한 혜택을 통해서 할인 금액을 확인한다 
-    - 증정 메뉴 출력은 적용 가능한 혜택 내부에 PROMOTION_EVENT의 존재 여부로 확인이 가능하다 
-    - OutputView --> Receipt (PROMOTION_EVENT가 존재하는 지 여부를 반환하여 OutputView는 증정 메뉴 출력 여부를 결정한다)
-  
-  - 적용 가능한 혜택을 통해서 할인 받는 금액을 확인하다 (진행)
-    - 각 할인 별로 금액을 유지하고 있어야 한다 EventStatus(EnumMap<DISCOUNT_TYPE, 금액>) 이를 OutputView에게 전달해야 한다
-      - AcceptedOrders (수용한 주문들) 을 가지고 있어야 한다. 주문 정보를 가지고 오기 위함이다
-        - Quantity 정보가 필요하다 
-        - DISCOUNT_TYPE의 DISCOUNT_EVENT 할인을 얻을 수 있음
-      - 각 할인의 합(= 총혜택 금액)을 OutputView에게 전달한다 (할인들의 합은 EventStatus의 역할)
-  
-  - 할인 후 예상 결제 금액
-    - 할인의 합을 EventStatus로 부터 조회한다 
-    - PROMOTION_EVENT으로 증정된 경우 25000원을 차감된 값을 OutputView에게 전달해야 한다
-      - EnumMap DISCOUNT_TYPE에 PROMOTION_EVENT가 존재하는 경우
-    - PROMOTION_EVENT가 적용되지 않은 경우 할인의 합을 그대로 OutputView에게 전달해야 한다 
-      - EnumMap DISCOUNT_TYPE에 PROMOTION_EVENT가 존재하지 않는 경우 
-
-3. 할인 금액을 통해 새해 이벤트 배지를 확인할 수 있다 
-  - 총혜택 금액에 따라 이벤트 배지를 부여한다 
-  - 차등적으로 이벤트 배지를 부여한다 
 
 
 ### 출력 예시를 반영한 기능 명세 사항
@@ -161,7 +120,7 @@
 최종적으로 적용 가능한 이벤트만 남긴다 
 ```
 
-- [x] 할인 전 총 주문 금액을 출력한다
+- 할인 전 총 주문 금액을 출력한다
   - 할인을 적용하기 전의 가격의 총합을 출력한다 
   - Order 정보를 확인하여 MenuPrice * Quantity 값을 반환한다 
   - 각각의 반환된 값들의 합을 구하고
@@ -198,34 +157,20 @@
 
 ## 단위 테스트 (Unit Test)
 모든 메뉴는 메뉴 종류, 메뉴 이름과 메뉴 가격을 포함한다 (Enum으로 표현하자) ex) 에피타이저, 양송이 스프, 6000원
-- [x] 메뉴 종류를 관리하는 Enum
-- [x] 메뉴 이름값을 Wrapping 클래스
-- [x] 메뉴의 가격을 Wrapping 클래스
+- [x] 메뉴 종류를 관리하는 Enum - MenuType
+- [x] 메뉴 이름값을 Wrapping 클래스 - MenuName
+- [x] 메뉴의 가격을 Wrapping 클래스 - MenuPrice
 
 모든 이벤트는 적용 기간, 할인 금액
-- 적용 기간을 관리하는 Enum ( ex.1-31, 1-25 / Predicate - 조건으로 표현한다 )
-  - 주말
-  - 평일
-  - 특정한 날짜는 7로 나눈 나머지를 적용
-  - 특별한 날짜는 따로 표기하는 방식으로 
-- 할인 금액을 Wrapping 하는 클래스 
-  - 단순히 하나의 메뉴를 고려한다 (한 종목에 하나의 종류를 생각한다)
-  - 메뉴의 수를 고려하지 않고 상품 종류에 따른 할인 금액을 기준으로 생성한다
+- 이벤트는 이벤트 이름, 이벤트 조건, 이벤트 효과로 구분할 수 있다 
+  - 이벤트 조건 그리고 이벤트 효과를 중심으로 구현한다 
+  - 이벤트 조건은 날짜 그리고 총 주문 금액으로 구성되어 있다 
+    - 이벤트는 날짜와 총 주문 금액을 유지하는 클래스와 협력해야 한다 
+- 이벤트 효과는 할인이다 
+  - 이벤트 별 적용되는 상품 종류에 따라 할인 금액이 결정된다 
+  - 상품 종류와 상관 없이 고정적으로 할인 금액이 결정된다
 
-혜택 금액에 따라 서로 다른 이벤트 배지를 부여한다
-- 혜택 금액을 인자로 전달하여 비교한다 
-  - 기준을 Predicate<>로 표현한다  
-  - 5천원 이상: 별
-  - 1만원 이상: 트리
-  - 2만원 이상: 산타
-
-Day를 넘겨주면 할인 적용 할 수 있는 이벤트를 List<>로 반환한다 (Day - DiscountType)
-- 적용 가능한 이벤트를 가지고 온다 - DiscountEvent 가지고 오면
-  - 단위 당 할인 금액을 확인할 수 있다
-  - Day를 전달해서 적용 가능한 이벤트를 먼저 확인
-
-#### 입력된 값을 활용하여 DTO 형성, Mapper 클래스를 활용하여 Entity로 변환한다 
-
+> 입력된 값을 활용하여 DTO 형성, Mapper 클래스를 활용하여 Entity로 변환한다
 ```
 식당에 방문할 날짜와 메뉴를 입력받는다 (Day)
   - 입력받는 날짜 (DateDTO)
@@ -245,19 +190,22 @@ Day를 넘겨주면 할인 적용 할 수 있는 이벤트를 List<>로 반환�
     - **예외 처리** 1 이상 31 이하의 숫자가 아닌 경우, "[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요."라는 에러 메시지를 출력한다
     - **예외 처리** 재입력을 받는다
 
-  - [x] 구매 내역을 형성한다 
+- [x] 구매 내역을 형성한다 (Order)
   - 구매 내역은 "$메뉴명-$개수" 형태로 입력한다 OrderDTO
     - 복수의 메뉴를 주문하는 경우 콤마(',')로 구분해서 입력한다 - OrderDTO에서 검증 
     - 메뉴 개수는 1이상의 숫자만 입력할 수 있다 - OrderQuantity 에서 검증 
       - **예외** 메뉴의 개수를 숫자로 입력하지 않은 경우 - orderDTO 검증 
       - **예외** 메뉴의 개수를 0으로 입력한 경우 - menuQuantity 검증 
       - **예외 처리** "[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요."라는 에러 메시지를 출력하고 재입력 받는다
+    
     - 메뉴판에 존재하는 메뉴만 입력할 수 있다 - MenuProduct 에서 검증 
       - **예외** 메뉴판에 존재하지 않는 메뉴를 입력한 경우 --> MenuProduct Enum에서 처리함 
       - **예외 처리** "[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요."라는 에러 메시지를 출력하고 재입력 받는다
+    
     - 중복 메뉴를 입력할 수 없다 - AcceptedOrders 검증
       - **예외** 중복 메뉴를 입력한 경우
       - **예외 처리** "[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요."라는 에러 메시지를 출력하고 재입력 받는다
+    
     - 형식에 맞지 않게 입력할 수 없다 - OrderDTO에서 검증한다
       - **예외** 형식에 맞게 입력하지 않은 경우
         - **예외 1** "$메뉴명-$메뉴 개수"의 형식을 지키지 않은 경우
@@ -267,47 +215,77 @@ Day를 넘겨주면 할인 적용 할 수 있는 이벤트를 List<>로 반환�
 
 ```
 구매 내역을 한꺼번에 테스트를 진행하려다 보니 여러 클래스가 
-동시 다발적으로 생성되면서 살짝 꼬이기 쉽겠다는 생각이 바로 들었다
+동시 다발적으로 생성되면서 꼬이기도 쉽고 생각이 복잡해진다 
 예외, 성공 케이스를 기준으로 하나의 검증을 마무리 지었다면 
-해당 검증에 대한 테스트를 바로 바로 진행하는 것이 좋겠다는 생각이 들었다  
+해당 검증에 대한 테스트를 바로 바로 진행하는 것이 좋다
 ```
-- [x] 할인 전 총 주문 금액을 출력한다
-- AcceptedOrders가 유지하는 Order은 MenuProduct, Quantity를 유지한다
-  - MenuProduct의 price를 조회한다
-  - price와 Quantity를 곱한다 
-  - 곱한 값들을 모두 합한다 
 
-- [x] 적용 가능한 이벤트를 가지고 온다 (DiscountChecker - Reservation)
-- Reservation을 임의로 생성한다
-- 적용 가능한 이벤트를 확인한다
-  - Promotion 이벤트의 경우 적용이 가능한 이벤트이다
-  - 적용은 가능하지만 금액 기준을 넘지 못하면 0원 할인이다
-- EventStatus를 반환한다
-  - 각 이벤트 별 할인 금액을 유지한다 
-- EventStatus로 부터 전체 할인 금액의 합을 반환한다 (TotalPrice)
+- [x] 할인 전 총 주문 금액을 출력한다
+  - 메뉴 그리고 수량을 저장하는 Order 클래스를 형성한다  
+  - Order의 목록을 유지하는 AcceptedOrders를 형성한다 
+  - AcceptedOrders가 유지하는 Order은 MenuProduct, Quantity를 유지한다
+    - MenuProduct의 price를 조회한다
+    - price와 Quantity를 곱한다 
+    - 곱한 값들을 모두 합한다 
+
+- [x] 적용 가능한 이벤트를 조회한다 (DiscountChecker - Reservation)
+  - 이벤트 조회에 필요한 정보는 Day, AcceptedOrders 이다  
+  - Day, AcceptedOrders를 유지하는 Reservation를 형성한다 
+  - 적용 가능한 이벤트를 확인한다
+    - Day를 통해서 적용 가능한 이벤트를 조회한다 
+      - Promotion 이벤트의 경우 적용이 가능한 이벤트이다
+      - 적용은 가능하지만 금액 기준을 넘지 못하면 0원 할인이다
+  
+- [x] EventStatus를 반환한다
+  - 각 이벤트 별 할인 금액을 Map<DiscountType, DiscountPrice> 형태로유지한다 
+  - EventStatus로 부터 전체 할인 금액의 합을 반환한다 (TotalPrice)
 
 - [x] 제한 조건을 검증
-  - 이벤트 적용 가능한 금액은 총 주문 금액을 기준으로 1만원 이상이다 (DiscountChecker)
-  - 음료만 주문하는 것은 불가능하다 
+  - 이벤트 적용 가능한 금액은 총 주문 금액을 기준으로 1만원 이상이다 
+    - DiscountChecker는 Reservation을 인자로 받아 이벤트를 조회한다
+    - Reservation 총 주문 금액을 먼저 확인한다
+      - 총 주문 금액이 1만원보다 작다면 이벤트 조회를 종료한다
+  - 음료만 주문하는 것은 불가능하다
   - 메뉴는 한 번에 최대 20개까지만 주문이 가능합니다
+  - 위의 2가지 제한 사항은 AcceptedOrders에서 검증한다 
     - AcceptedOrder은 order로 구성되어 있다
-      - 각각의 Order은 MenuProduct 그리고 quantitiy로 구성되어 있다 
-      - Order.hasSameMenuType(MenuType) - 음료만 구성되어 있는 경우 예외 상황
-      - Order.getSpecificMenuType(MenuType) - MenuType.values() 를 적용해서 음식 개수의 총합을 구할 수 있다 
-  
+      - 각각의 Order은 MenuProduct 그리고 quantity로 구성되어 있다 
+      - Order.hasSameMenuType(MenuType) - 음료만 구성되어 있는 경우 예외를 발생한다
+      - Order.getMenuQuantity() - MenuType.values() 를 적용해서 음식 개수의 총합을 구하고 20보다 크다면 예외를 발생한다
 
 - [x] 혜택 금액 그리고 실제 할인 금액을 구할 수 있다 EventStatus
-- PROMOTION 존재 여부에 따라 혜택 금액 그리고 할인 금액이 서로 다르다 
-  - 존재하면 혜택 금액에는 포함되지만 할인 금액에는 포함되지 않는다
-  - 존재하지 않으면 혜택 금액, 할인 금액 모두 포함되지 않는다 
-  - 존재 여부를 상관하지 않고 할인 금액을 구하는 경우에는 PROMOTION으로 적용된 할인 금액을 적용하지 않는다 
+  - PROMOTION 존재 여부에 따라 혜택 금액 그리고 할인 금액이 서로 다르다 
+    - 존재하면 혜택 금액에는 포함되지만 할인 금액에는 포함되지 않는다
+    - 존재하지 않으면 혜택 금액, 할인 금액 모두 포함되지 않는다 
+    - **존재 여부를 상관하지 않고 할인 금액을 구하는 경우에는 PROMOTION으로 적용된 할인 금액을 적용하지 않는다**
+      - PROMOTION 이벤트를 제외한 합을 구한다 
 
-이벤트 배지는 **혜택 금액**을 기준으로 적용한다
-- EventStatus로 부터 혜택 금액을 반환할 수 있다 
-  - TotalPrice
+- [x] 이벤트 배지는 **혜택 금액**을 기준으로 적용한다
+  - EventStatus로 부터 혜택 금액을 반환할 수 있다 
+
+---
+## Controller flow
+
+```
 구매 내역과 이벤트 적용하기
 - 증정메뉴
 - 헤택 내역
 - 총 혜택 금액
 - 할인 후 예상 결제 금액
 - 12월 이벤트 배지
+```
+### 순서 
+1. 방문 날짜를 입력받는다 - RegisterDayController
+   - DayDTO
+2. 주문할 메뉴와 개수를 입력받는다 - RegisterOrderController
+   - OrderDTO
+3. 주문한 메뉴와 할인 전 총 주문 금액을 출력한다 - DisplayOrderController
+   - AcceptedOrders
+4. 증정 메뉴, 혜택 내역, 총 혜택 금액, 할인 후 예상 결제 금액을 출력한다 - DisplayBenefitController
+   - 증정 메뉴는 EventStatus (PROMOTION_EVENT와 매칭하는 DiscountPrice 확인)
+   - 혜택 내역은 EventStatus (DiscountPrice가 0 인 경우 제외하고 모두 출력)
+   - 총 혜택 금액 EventStatus (PROMOTION 포함)
+   - 할인 후 예상 결제 금액 EventStatus와 협력한다 (할인 전 총 주문 금액 - AcceptedOrders 그리고 실제 할인 금액 - EventStatus) 
+5. 12월 이벤트 배지를 출력한다 - DisplayBadgeController
+   - EventStatus 로 부터 총 혜택 내역을 반환한다
+   - 이벤트 배지를 출력한다 

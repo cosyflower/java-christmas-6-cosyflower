@@ -2,8 +2,8 @@ package christmas.domain.receipt;
 
 import christmas.domain.order.AcceptedOrders;
 import christmas.domain.order.Order;
-import christmas.domain.util.Mapper;
 import christmas.dto.OrderDTO;
+import christmas.util.Mapper;
 import java.util.stream.Stream;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;

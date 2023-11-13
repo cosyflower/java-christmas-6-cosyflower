@@ -28,7 +28,19 @@ public class EventReservation {
         return acceptedOrders.canGetPromotion(promotionCriteria);
     }
 
-    public Day getDay() {
-        return day;
+    public boolean isWeekDay() {
+        return day.isWeekDay();
+    }
+
+    public boolean isWeekend() {
+        return day.isWeekend();
+    }
+
+    public boolean isBeforeThan(int dayValue) {
+        return day.isBeforeThan(dayValue);
+    }
+
+    public boolean isSpecialDay() {
+        return day.isSpecialDay();
     }
 }

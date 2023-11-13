@@ -3,9 +3,10 @@ package christmas.domain;
 import christmas.domain.discount.DiscountEvent;
 import christmas.domain.order.AcceptedOrders;
 import christmas.domain.order.Order;
-import java.util.List;
+import java.util.Arrays;
 import java.util.stream.Stream;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -32,9 +33,18 @@ public class DiscountEventTest {
     @MethodSource("dayAndEvent")
     void WeekDay(int dayValue, DiscountEvent discountEvent, Boolean validOrUnvalid) {
         Day day = Day.from(dayValue);
-        boolean isValid = discountEvent.isValidEvent(day);
+        AcceptedOrders acceptedOrders = AcceptedOrders.from(Arrays.asList(Order.from("양송이스프-2"),
+                Order.from("티본스테이크-3")));
+
+        EventReservation eventReservation = EventReservation.of(day, acceptedOrders);
+        boolean isValid = discountEvent.isValidEvent(eventReservation);
 
         Assertions.assertThat(isValid).isEqualTo(validOrUnvalid);
+    }
+
+    @Test
+    void flow() {
+
     }
 
 }

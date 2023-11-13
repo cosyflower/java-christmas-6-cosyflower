@@ -1,8 +1,7 @@
 package christmas.domain.discount;
 
 import christmas.domain.Day;
-import java.util.Arrays;
-import java.util.List;
+import christmas.domain.EventReservation;
 
 public enum DiscountType { // 이벤트 관련 총 정보
     // 변동 금액
@@ -22,14 +21,12 @@ public enum DiscountType { // 이벤트 관련 총 정보
         this.discountEventName = discountEventName;
     }
 
-    // 가능한 DiscountType을 받는다
-    public static List<DiscountType> checkValidDiscountType(Day day) {
-        return Arrays.stream(values())
-                .filter(discountType -> discountType.checkValidEvent(day))
-                .toList();
+    public DiscountPrice findDiscountPrice(EventReservation eventReservation) {
+        return discountEvent.applyDiscountPrice(eventReservation);
     }
+
     // chekcValidDiscountType()
-    private boolean checkValidEvent(Day day) {
-        return discountEvent.isValidEvent(day);
+    public boolean checkValidEvent(EventReservation eventReservation) {
+        return discountEvent.isValidEvent(eventReservation);
     }
 }

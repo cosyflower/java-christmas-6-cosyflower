@@ -1,6 +1,10 @@
 package christmas.domain;
 
+import christmas.domain.discount.DiscountChecker;
 import christmas.domain.discount.DiscountType;
+import christmas.domain.order.AcceptedOrders;
+import christmas.domain.order.Order;
+import java.util.Arrays;
 import java.util.List;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -11,8 +15,11 @@ public class DiscountTypeTest {
     @DisplayName("Day에 적용 가능한 이벤트 리스트 확인하기")
     void findValidDiscountType() {
         Day day = Day.from(25);
+        AcceptedOrders acceptedOrders = AcceptedOrders.from(Arrays.asList(Order.from("양송이스프-2"),
+                Order.from("티본스테이크-3")));
 
-        List<DiscountType> discountTypes = DiscountType.checkValidDiscountType(day);
+        EventReservation eventReservation = EventReservation.of(day, acceptedOrders);
+        List<DiscountType> discountTypes = DiscountChecker.checkValidDiscountType(eventReservation);
 
         Assertions.assertThat(discountTypes).containsExactly(DiscountType.WEEKDAY_DISCOUNT,
                 DiscountType.CHRISTMAS_DISCOUNT, DiscountType.PROMOTION_DISCOUNT, DiscountType.SPECIAL_DISCOUNT);

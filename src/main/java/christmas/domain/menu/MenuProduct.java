@@ -52,6 +52,10 @@ public enum MenuProduct {
                 .orElseThrow(() -> new IllegalArgumentException("(존재하지 않는 메뉴) 유효하지 않는 주문입니다"));
     }
 
+    public boolean isSameMenuType(MenuType menuType) {
+        return menuType == menuType;
+    }
+
     public MenuType getMenuType() {
         return menuType;
     }

@@ -4,11 +4,11 @@ import christmas.domain.util.Util;
 import java.util.Objects;
 
 public class MenuQuantity {
-    private final int menuQuantity;
+    private final int menuQuantityValue;
 
     private MenuQuantity(String uncheckedValue) {
         validate(uncheckedValue);
-        this.menuQuantity = Util.convertStringToInt(uncheckedValue);
+        this.menuQuantityValue = Util.convertStringToInt(uncheckedValue);
     }
 
     private void validate(String menuQuantity) {
@@ -27,8 +27,8 @@ public class MenuQuantity {
         return new MenuQuantity(unconvertedMenuQuantity);
     }
 
-    public int getMenuQuantity() {
-        return menuQuantity;
+    public int getMenuQuantityValue() {
+        return menuQuantityValue;
     }
 
     @Override
@@ -40,11 +40,11 @@ public class MenuQuantity {
             return false;
         }
         MenuQuantity that = (MenuQuantity) o;
-        return menuQuantity == that.menuQuantity;
+        return menuQuantityValue == that.menuQuantityValue;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(menuQuantity);
+        return Objects.hash(menuQuantityValue);
     }
 }

@@ -1,6 +1,7 @@
 package christmas.domain.order;
 
 import christmas.domain.menu.MenuProduct;
+import christmas.domain.menu.MenuType;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -41,5 +42,19 @@ public class AcceptedOrders {
 
     public List<Order> getAcceptedOrders() {
         return Collections.unmodifiableList(acceptedOrders);
+    }
+
+    public int getSpecificMenuQuantity(MenuType menuType) {
+        return acceptedOrders.stream()
+                .filter(order -> order.hasSameMenuType(menuType))
+                .mapToInt(order -> order.getMenuQuantity().getMenuQuantityValue())
+                .sum();
+    }
+
+    public boolean canGetPromotion(int promotionCriteria) {
+        if (checkTotalPriceWithoutDiscount() >= promotionCriteria) {
+            return true;
+        }
+        return false;
     }
 }

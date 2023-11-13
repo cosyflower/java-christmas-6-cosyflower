@@ -15,7 +15,7 @@ public class MenuPrice {
     }
 
     public int multiplyQuantity(MenuQuantity menuQuantity) {
-        return price * menuQuantity.getMenuQuantity();
+        return price * menuQuantity.getMenuQuantityValue();
     }
 
     public int getPrice() {
@@ -38,6 +38,4 @@ public class MenuPrice {
     public int hashCode() {
         return Objects.hash(getPrice());
     }
-
-
 }

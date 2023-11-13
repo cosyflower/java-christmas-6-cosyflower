@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Set;
 
 public class AcceptedOrders {
+    private static final int MAXIMUM_ORDER = 20;
     private final List<Order> acceptedOrders;
 
     private AcceptedOrders(List<Order> acceptedOrders) {
@@ -24,15 +25,15 @@ public class AcceptedOrders {
 
     private void hasOnlyDrinks(List<Order> acceptedOrders) {
         if (acceptedOrders.stream().allMatch(order -> order.hasSameMenuType(MenuType.DRINK))) {
-            throw new IllegalArgumentException("(음료만 주문) 유효하지 않는 주문입니다");
+            throw new IllegalArgumentException("유효하지 않는 주문입니다");
         }
     }
 
     private void hasOutOfMaximumOrders(List<Order> acceptedOrders) {
         if (acceptedOrders.stream()
-                .mapToInt(order -> order.getMenuQuantity().getMenuQuantityValue())
-                .sum() > 20) {
-            throw new IllegalArgumentException("(최대 20개를 넘음) 유효하지 않는 주문입니다");
+                .mapToInt(order -> order.getMenuQuantityValue())
+                .sum() > MAXIMUM_ORDER) {
+            throw new IllegalArgumentException("유효하지 않는 주문입니다");
         }
     }
 
@@ -41,7 +42,7 @@ public class AcceptedOrders {
         acceptedOrders.stream()
                 .forEach((order) -> menuProducts.add(order.getMenuProduct()));
         if (acceptedOrders.size() != menuProducts.size()) {
-            throw new IllegalArgumentException("(중복된 주문 메뉴) 유효하지 않는 주문입니다");
+            throw new IllegalArgumentException("유효하지 않는 주문입니다");
         }
     }
 
@@ -50,7 +51,6 @@ public class AcceptedOrders {
     }
 
     public int checkTotalPriceWithoutDiscount() {
-        // 할인 전 총 결제 금액
         return acceptedOrders.stream()
                 .mapToInt(Order::getEachOrderTotalPrice)
                 .sum();
@@ -63,7 +63,7 @@ public class AcceptedOrders {
     public int getSpecificMenuQuantity(MenuType menuType) {
         return acceptedOrders.stream()
                 .filter(order -> order.hasSameMenuType(menuType))
-                .mapToInt(order -> order.getMenuQuantity().getMenuQuantityValue())
+                .mapToInt(order -> order.getMenuQuantityValue())
                 .sum();
     }
 

@@ -2,6 +2,12 @@ package christmas.domain.reservation;
 
 public class Day {
     public static final int SPECIAL_DAY = 25;
+    public static final int WEEK_TOTAL_DAYS = 7;
+    public static final int FIRST_WEEKEND_REMAIN = 1;
+    public static final int SECOND_WEEKEND_REMAIN = 2;
+    public static final int SPECIAL_REMAIN = 3;
+    public static final int ADJUST_DATE = 1;
+
     private final int dayValue;
 
     private Day(int dayValue) {
@@ -24,7 +30,7 @@ public class Day {
     }
 
     public boolean isWeekend() {
-        return isSameRemain(1) || isSameRemain(2);
+        return isSameRemain(FIRST_WEEKEND_REMAIN) || isSameRemain(SECOND_WEEKEND_REMAIN);
     }
 
     public boolean isWeekDay() {
@@ -39,18 +45,14 @@ public class Day {
         if (dayValue == SPECIAL_DAY) {
             return true;
         }
-        return isSameRemain(3);
+        return isSameRemain(SPECIAL_REMAIN);
     }
 
     private boolean isSameRemain(int remainValue) {
-        return dayValue % 7 == remainValue;
-    }
-
-    public int getDay() {
-        return dayValue;
+        return dayValue % WEEK_TOTAL_DAYS == remainValue;
     }
 
     public int calculateDay() {
-        return dayValue - 1;
+        return dayValue - ADJUST_DATE;
     }
 }

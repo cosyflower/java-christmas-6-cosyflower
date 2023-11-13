@@ -1,12 +1,12 @@
 package christmas.domain.discount;
 
 import christmas.domain.receipt.EventStatus;
-import christmas.domain.receipt.TotalPrice;
 import christmas.domain.reservation.EventReservation;
 import java.util.Arrays;
 import java.util.List;
 
 public class DiscountChecker {
+    private static final int DISCOUNT_THRESHOLD = 10000;
     // private 화 해야 한다
     public static List<DiscountType> checkValidDiscountTypes(EventReservation eventReservation) {
         return Arrays.stream(DiscountType.values())
@@ -14,17 +14,12 @@ public class DiscountChecker {
                 .toList();
     }
 
-    public static TotalPrice getDiscountPriceTotal(EventStatus eventStatus) {
-        return TotalPrice.from(eventStatus.getBenefitAmount());
-    }
-
-    public static EventStatus findAllDiscountPrice(EventReservation eventReservation) { // 할인 금액 확인
+    public static EventStatus findAllDiscountPrice(EventReservation eventReservation) {
         EventStatus eventStatus = new EventStatus();
-        // 총주문 금액 10000원 작으면 생성하지 않는다 - EventReservation
-        if (eventReservation.getTotalPriceWithoutDiscount() < 10000) {
+        if (eventReservation.getTotalPriceWithoutDiscount() < DISCOUNT_THRESHOLD) {
             return eventStatus;
         }
-        checkValidDiscountTypes(eventReservation).stream()
+        checkValidDiscountTypes(eventReservation)
                 .forEach(discountType -> eventStatus.addStatus(discountType,
                         discountType.findDiscountPrice(eventReservation)));
         return eventStatus;

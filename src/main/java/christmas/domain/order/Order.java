@@ -5,13 +5,17 @@ import christmas.domain.menu.MenuType;
 import java.util.Objects;
 
 public class Order {
+    private static final String ORDER_SEPARATOR = "-";
+    private static final int MENU_PRODUCT_INDEX = 0;
+    private static final int MENU_QUANTITY_INDEX = 1;
+
     private final MenuProduct menuProduct; // 메뉴
     private final MenuQuantity menuQuantity; // 수량
 
     private Order(String menuAndNumber) { // "양송이스프-2" 가 들어온 상황
-        String[] split = menuAndNumber.split("-");
-        this.menuProduct = MenuProduct.findMenuProductByName(split[0]);
-        this.menuQuantity = MenuQuantity.from(split[1]);
+        String[] split = menuAndNumber.split(ORDER_SEPARATOR);
+        this.menuProduct = MenuProduct.findMenuProductByName(split[MENU_PRODUCT_INDEX]);
+        this.menuQuantity = MenuQuantity.from(split[MENU_QUANTITY_INDEX]);
     }
 
     public static Order from(String menuAndNumber) {
@@ -23,7 +27,7 @@ public class Order {
     }
 
     public boolean hasSameMenuType(MenuType menuType) {
-        return menuProduct.isSameMenuType(menuType); // menuType == menuType
+        return menuProduct.isSameMenuType(menuType);
     }
 
     @Override

@@ -4,6 +4,7 @@ import christmas.util.Util;
 import java.util.Objects;
 
 public class MenuQuantity {
+    private static final String UNVALID_PREFIX = "0";
     private final int menuQuantityValue;
 
     private MenuQuantity(String uncheckedValue) {
@@ -12,14 +13,12 @@ public class MenuQuantity {
     }
 
     private void validate(String menuQuantity) {
-        // 숫자 입력은 미리 DTO에서 검증된 상황
-        // 0으로 시작하는 예외
         isStartsWithZero(menuQuantity);
     }
 
     private void isStartsWithZero(String menuQuantity) {
-        if (menuQuantity.startsWith("0")) {
-            throw new IllegalArgumentException("(0으로 시작한 수) 유효하지 않은 주문입니다");
+        if (menuQuantity.startsWith(UNVALID_PREFIX)) {
+            throw new IllegalArgumentException("유효하지 않은 주문입니다");
         }
     }
 

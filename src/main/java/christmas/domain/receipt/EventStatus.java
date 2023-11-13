@@ -1,6 +1,7 @@
 package christmas.domain.receipt;
 
-import christmas.domain.discount.DiscountEvent;
+import static christmas.util.Constants.INIT_VALUE;
+
 import christmas.domain.discount.DiscountPrice;
 import christmas.domain.discount.DiscountType;
 import java.util.Arrays;
@@ -14,7 +15,7 @@ public class EventStatus {
 
     public EventStatus() {
         Arrays.stream(DiscountType.values())
-                .forEach(discountType -> eventStatus.put(discountType, DiscountPrice.from(0)));
+                .forEach(discountType -> eventStatus.put(discountType, DiscountPrice.from(INIT_VALUE)));
     }
 
     public void addStatus(DiscountType discountType, DiscountPrice discountPrice) {
@@ -47,7 +48,7 @@ public class EventStatus {
     public Map<DiscountType, DiscountPrice> removeNonAppliedDiscount() {
         Set<DiscountType> discountTypes = eventStatus.keySet();
         for (DiscountType discountType : discountTypes) {
-            if (eventStatus.get(discountType).getDiscountPriceValue() == 0) { // Refactor
+            if (eventStatus.get(discountType).isUnvalidDiscount()) { // Refactor
                 eventStatus.remove(discountType);
             }
         }

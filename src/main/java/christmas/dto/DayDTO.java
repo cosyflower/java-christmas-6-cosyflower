@@ -17,7 +17,7 @@ public class DayDTO {
 
     private void isNullOrEmpty(String dateDTO) {
         if (dateDTO == null || dateDTO.isEmpty()) {
-            throw new IllegalArgumentException("아무것도 입력하지 않았습니다.");
+            throw new IllegalArgumentException("유효하지 않은 날짜입니다.");
         }
     }
 

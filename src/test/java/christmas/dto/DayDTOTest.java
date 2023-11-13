@@ -34,7 +34,7 @@ class DayDTOTest {
         void 수가_아닌_문자를_입력하면_예외(String nonNumber) {
             Assertions.assertThatThrownBy(() -> new DayDTO(nonNumber))
                     .isInstanceOf(IllegalArgumentException.class)
-                    .hasMessageContaining("수를");
+                    .hasMessageContaining("유효하지 않은 날짜입니다.");
         }
     }
 

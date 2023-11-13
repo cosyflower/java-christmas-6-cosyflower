@@ -30,7 +30,7 @@ public enum DiscountType { // 이벤트 관련 총 정보
     }
 
     public String getDiscountEventNameValue() {
-        return discountEventName.getEventNameVaue();
+        return discountEventName.getEventNameValue();
     }
 
     public DiscountEvent getDiscountEvent() {

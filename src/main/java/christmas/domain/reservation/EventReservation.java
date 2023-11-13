@@ -17,7 +17,7 @@ public class EventReservation {
     }
 
     public int getAccumulatedDays() {
-        return day.calculateDay(); // dayValue - 1
+        return day.calculateDay();
     }
 
     public int getSpecificMenuTypeTotal(MenuType menuType) {

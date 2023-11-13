@@ -12,5 +12,4 @@ public enum MenuType {
     MenuType(String description) {
         this.description = description;
     }
-
 }

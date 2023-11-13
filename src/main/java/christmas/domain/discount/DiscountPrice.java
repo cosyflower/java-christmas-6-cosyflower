@@ -1,6 +1,7 @@
 package christmas.domain.discount;
 
-public class DiscountPrice { // 할인 금액, 할인 금액의 합
+public class DiscountPrice {
+    private static final int VALID_CRITERIA = 0;
     private final int discountPriceValue;
 
     private DiscountPrice(int discountPriceValue) {
@@ -16,6 +17,10 @@ public class DiscountPrice { // 할인 금액, 할인 금액의 합
     }
 
     public boolean isValidDiscount() {
-        return discountPriceValue > 0;
+        return discountPriceValue > VALID_CRITERIA;
+    }
+
+    public boolean isUnvalidDiscount() {
+        return !isValidDiscount();
     }
 }

@@ -1,44 +1,49 @@
 package christmas.domain.discount;
 
+import static christmas.util.Constants.*;
+
 import christmas.domain.menu.MenuType;
 import christmas.domain.reservation.EventReservation;
+import christmas.util.Constants;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-public enum DiscountEvent { // 유닛 당 할인 금액 or 고정 금액 그리고 혜택 적용 가능한 조건
+public enum DiscountEvent {
     WEEKDAY_EVENT(eventReservation -> DiscountPrice.from(
-            eventReservation.getSpecificMenuTypeTotal(MenuType.DESERT) * 2023
+            eventReservation.getSpecificMenuTypeTotal(MenuType.DESERT) * DISCOUNT_AMOUNT
     ), (eventReservation -> eventReservation.isWeekDay())),
 
     WEEKEND_EVENT(eventReservation -> DiscountPrice.from(
-            eventReservation.getSpecificMenuTypeTotal(MenuType.MAIN_MENU) * 2023)
+            eventReservation.getSpecificMenuTypeTotal(MenuType.MAIN_MENU) * DISCOUNT_AMOUNT)
             , (eventReservation -> eventReservation.isWeekend())),
 
-    CHRISTMAS_EVENT(eventReservation -> DiscountPrice.from(1000 + eventReservation.getAccumulatedDays() * 100),
-            (eventReservation -> eventReservation.isBeforeThan(25))),
+    CHRISTMAS_EVENT(eventReservation -> DiscountPrice.from(
+            DEFAULT_DISCOUNT_AMOUNT + eventReservation.getAccumulatedDays() * INCREASE_AMOUNT),
+            (eventReservation -> eventReservation.isBeforeThan(CHRISTMAS_DAY))),
 
-    PROMOTION_EVENT(eventReservation -> DiscountPrice.from(applyPromotion(eventReservation, 120000)),
-            (eventReservation -> eventReservation.isBeforeThan(31))),
+    PROMOTION_EVENT(eventReservation -> DiscountPrice.from(applyPromotion(eventReservation,
+            PROMOTION_CRITERIA)),
+            (eventReservation -> eventReservation.isBeforeThan(LAST_DAY))),
 
-    SPECIAL_EVENT(eventReservation -> DiscountPrice.from(1000),
+    SPECIAL_EVENT(eventReservation -> DiscountPrice.from(DEFAULT_DISCOUNT_AMOUNT),
             (eventReservation -> eventReservation.isSpecialDay())),
     ;
 
-    private final Function<EventReservation, DiscountPrice> discountPriceFunction; // DiscountPrice 금액을 말한다
-    private final Predicate<EventReservation> isEventDay; // 날짜 조건 (가능한 날)
+    private final Function<EventReservation, DiscountPrice> discountPriceFunction;
+    private final Predicate<EventReservation> isEventDay;
 
     DiscountEvent(
             Function<EventReservation, DiscountPrice> discountPriceFunction,
-            Predicate<EventReservation> isEventDay) { // Predicate<EventReservation>
+            Predicate<EventReservation> isEventDay) {
         this.discountPriceFunction = discountPriceFunction;
         this.isEventDay = isEventDay;
     }
 
     private static int applyPromotion(EventReservation eventReservation, int promotionCriteria) {
         if (eventReservation.checkPromotion(promotionCriteria)) {
-            return 25000;
+            return Constants.PROMOTION_AMOUNT;
         }
-        return 0;
+        return INIT_VALUE;
     }
 
     public DiscountPrice applyDiscountPrice(EventReservation eventReservation) {

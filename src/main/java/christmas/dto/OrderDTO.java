@@ -17,7 +17,7 @@ public class OrderDTO {
 
     private void isNullOrEmpty(String order) {
         if (order == null || order.isEmpty()) {
-            throw new IllegalArgumentException("아무것도 입력하지 않았습니다");
+            throw new IllegalArgumentException("유효하지 않은 주문입니다.");
         }
     }
 

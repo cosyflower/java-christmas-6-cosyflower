@@ -10,4 +10,8 @@ public class DiscountEventName {
     public static DiscountEventName from(String eventName) {
         return new DiscountEventName(eventName);
     }
+
+    public String getEventNameVaue() {
+        return eventNameVaue;
+    }
 }

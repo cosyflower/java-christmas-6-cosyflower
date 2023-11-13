@@ -1,11 +1,13 @@
 package christmas.domain.receipt;
 
+import christmas.domain.discount.DiscountEvent;
 import christmas.domain.discount.DiscountPrice;
 import christmas.domain.discount.DiscountType;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.EnumMap;
 import java.util.Map;
+import java.util.Set;
 
 public class EventStatus {
     private final Map<DiscountType, DiscountPrice> eventStatus = new EnumMap<>(DiscountType.class);
@@ -36,5 +38,19 @@ public class EventStatus {
 
     public Map<DiscountType, DiscountPrice> getEventStatus() {
         return Collections.unmodifiableMap(eventStatus);
+    }
+
+    public boolean hasDiscountPrice(DiscountEvent discountEvent) {
+        return eventStatus.get(discountEvent).getDiscountPriceValue() == 0;
+    }
+
+    public Map<DiscountType, DiscountPrice> removeNonAppliedDiscount() {
+        Set<DiscountType> discountTypes = eventStatus.keySet();
+        for (DiscountType discountType : discountTypes) {
+            if (eventStatus.get(discountType).getDiscountPriceValue() == 0) { // Refactor
+                eventStatus.remove(discountType);
+            }
+        }
+        return eventStatus;
     }
 }

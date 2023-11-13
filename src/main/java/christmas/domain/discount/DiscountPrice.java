@@ -14,4 +14,8 @@ public class DiscountPrice { // 할인 금액, 할인 금액의 합
     public int getDiscountPriceValue() {
         return discountPriceValue;
     }
+
+    public boolean isValidDiscount() {
+        return discountPriceValue > 0;
+    }
 }

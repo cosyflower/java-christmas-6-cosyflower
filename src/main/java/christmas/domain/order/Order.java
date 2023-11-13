@@ -50,4 +50,12 @@ public class Order {
     public MenuQuantity getMenuQuantity() {
         return menuQuantity;
     }
+
+    public String getMenuNameValue() {
+        return menuProduct.getMenuName().getMenuNameValue();
+    }
+
+    public int getMenuQuantityValue() {
+        return menuQuantity.getMenuQuantityValue();
+    }
 }

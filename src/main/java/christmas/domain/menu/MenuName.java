@@ -13,7 +13,7 @@ public class MenuName {
         return new MenuName(menuName);
     }
 
-    public String getMenuName() {
+    public String getMenuNameValue() {
         return menuName;
     }
 
@@ -26,11 +26,11 @@ public class MenuName {
             return false;
         }
         MenuName menuName1 = (MenuName) o;
-        return Objects.equals(getMenuName(), menuName1.getMenuName());
+        return Objects.equals(getMenuNameValue(), menuName1.getMenuNameValue());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getMenuName());
+        return Objects.hash(getMenuNameValue());
     }
 }

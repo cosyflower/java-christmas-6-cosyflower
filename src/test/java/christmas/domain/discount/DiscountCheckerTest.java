@@ -1,4 +1,4 @@
-package christmas.domain;
+package christmas.domain.discount;
 
 import static christmas.domain.discount.DiscountType.CHRISTMAS_DISCOUNT;
 import static christmas.domain.discount.DiscountType.PROMOTION_DISCOUNT;
@@ -13,6 +13,8 @@ import christmas.domain.discount.DiscountType;
 import christmas.domain.order.AcceptedOrders;
 import christmas.domain.order.Order;
 import christmas.domain.receipt.EventStatus;
+import christmas.domain.reservation.Day;
+import christmas.domain.reservation.EventReservation;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;

@@ -1,5 +1,6 @@
-package christmas.domain;
+package christmas.domain.reservation;
 
+import christmas.domain.reservation.Day;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;

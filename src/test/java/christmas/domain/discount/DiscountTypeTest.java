@@ -1,9 +1,11 @@
-package christmas.domain;
+package christmas.domain.discount;
 
 import christmas.domain.discount.DiscountChecker;
 import christmas.domain.discount.DiscountType;
 import christmas.domain.order.AcceptedOrders;
 import christmas.domain.order.Order;
+import christmas.domain.reservation.Day;
+import christmas.domain.reservation.EventReservation;
 import java.util.Arrays;
 import java.util.List;
 import org.assertj.core.api.Assertions;

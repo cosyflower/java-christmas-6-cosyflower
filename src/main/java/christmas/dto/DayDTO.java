@@ -5,13 +5,9 @@ import christmas.domain.util.Constants;
 public class DayDTO {
     private final String dateDTO;
 
-    private DayDTO(String dateDTO) {
+    public DayDTO(String dateDTO) {
         validate(dateDTO);
         this.dateDTO = dateDTO;
-    }
-
-    public static DayDTO from(String dateDTO) {
-        return new DayDTO(dateDTO);
     }
 
     private void validate(String dateDTO) {
@@ -29,5 +25,9 @@ public class DayDTO {
         if (Constants.NUMBER_PATTERN.matcher(dateDTO).matches() == false) {
             throw new IllegalArgumentException("수를 입력하지 않았습니다.");
         }
+    }
+
+    public String getDateDTO() {
+        return dateDTO;
     }
 }

@@ -1,7 +1,9 @@
 package christmas.domain.util;
 
+import christmas.domain.reservation.Day;
 import christmas.domain.order.AcceptedOrders;
 import christmas.domain.order.Order;
+import christmas.dto.DayDTO;
 import christmas.dto.OrderDTO;
 import java.util.Arrays;
 import java.util.List;
@@ -17,4 +19,8 @@ public class Mapper {
         return AcceptedOrders.from(orders);
     }
 
+    public static Day toDay(DayDTO dayDTO) {
+        String date = dayDTO.getDateDTO();
+        return Day.from(Util.convertStringToInt(date));
+    }
 }

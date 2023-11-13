@@ -16,7 +16,7 @@ class DayDTOTest {
         @ParameterizedTest
         @NullAndEmptySource
         void 아무것도_입력하지_않으면_예외(String nullAndEmpty) {
-            Assertions.assertThatThrownBy(() -> DayDTO.from(nullAndEmpty))
+            Assertions.assertThatThrownBy(() -> new DayDTO(nullAndEmpty))
                     .isInstanceOf(IllegalArgumentException.class)
                     .hasMessageContaining("아무것도");
         }
@@ -32,7 +32,7 @@ class DayDTOTest {
         @ParameterizedTest
         @MethodSource("generateNonNumber")
         void 수가_아닌_문자를_입력하면_예외(String nonNumber) {
-            Assertions.assertThatThrownBy(() -> DayDTO.from(nonNumber))
+            Assertions.assertThatThrownBy(() -> new DayDTO(nonNumber))
                     .isInstanceOf(IllegalArgumentException.class)
                     .hasMessageContaining("수를");
         }
@@ -52,7 +52,7 @@ class DayDTOTest {
         @ParameterizedTest
         @MethodSource("generateNumber")
         void 수를_입력하면_성공(String number) {
-            Assertions.assertThatCode(() -> DayDTO.from(number))
+            Assertions.assertThatCode(() -> new DayDTO(number))
                     .doesNotThrowAnyException();
         }
     }

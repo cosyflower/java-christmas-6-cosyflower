@@ -1,5 +1,7 @@
 package christmas.domain.order;
 
+import static christmas.util.Constants.ERROR_UNVALID_ORDER_MESSAGE;
+
 import christmas.util.Util;
 import java.util.Objects;
 
@@ -18,7 +20,7 @@ public class MenuQuantity {
 
     private void isStartsWithZero(String menuQuantity) {
         if (menuQuantity.startsWith(UNVALID_PREFIX)) {
-            throw new IllegalArgumentException("유효하지 않은 주문입니다.");
+            throw new IllegalArgumentException(ERROR_UNVALID_ORDER_MESSAGE);
         }
     }
 

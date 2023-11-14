@@ -1,5 +1,7 @@
 package christmas.domain.menu;
 
+import static christmas.util.Constants.ERROR_UNVALID_ORDER_MESSAGE;
+
 import christmas.domain.order.MenuQuantity;
 import java.util.Arrays;
 import java.util.Collections;
@@ -48,7 +50,7 @@ public enum MenuProduct {
 
     public static MenuProduct findMenuProductByName(String name) {
         return Optional.ofNullable(menuProductMap.get(MenuName.from(name)))
-                .orElseThrow(() -> new IllegalArgumentException("유효하지 않은 주문입니다."));
+                .orElseThrow(() -> new IllegalArgumentException(ERROR_UNVALID_ORDER_MESSAGE));
     }
 
     public boolean isSameMenuType(MenuType otherMenuType) {

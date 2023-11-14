@@ -1,6 +1,12 @@
 package christmas.domain.discount;
 
-import static christmas.util.Constants.*;
+import static christmas.util.Constants.CHRISTMAS_DAY;
+import static christmas.util.Constants.DEFAULT_DISCOUNT_AMOUNT;
+import static christmas.util.Constants.DISCOUNT_AMOUNT;
+import static christmas.util.Constants.INCREASE_AMOUNT;
+import static christmas.util.Constants.INIT_VALUE;
+import static christmas.util.Constants.LAST_DAY;
+import static christmas.util.Constants.PROMOTION_CRITERIA;
 
 import christmas.domain.menu.MenuType;
 import christmas.domain.reservation.EventReservation;

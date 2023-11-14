@@ -8,6 +8,7 @@ public class Constants {
 
     public static final int INIT_VALUE = 0;
 
+    public static final int FIRST_DAY = 1;
     public static final int LAST_DAY = 31;
     public static final int CHRISTMAS_DAY = 25;
 
@@ -20,4 +21,7 @@ public class Constants {
     public static final int INCREASE_AMOUNT = 100;
     public static final int DEFAULT_DISCOUNT_AMOUNT = 1000;
     public static final int PROMOTION_AMOUNT = 25000;
+
+    public static final String ERROR_UNVALID_ORDER_MESSAGE = "유효하지 않은 주문입니다.";
+    public static final String ERROR_UNVALID_DAY_MESSAGE = "유효하지 않은 날짜입니다.";
 }

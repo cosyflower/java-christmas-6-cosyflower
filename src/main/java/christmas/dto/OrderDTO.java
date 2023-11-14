@@ -1,5 +1,7 @@
 package christmas.dto;
 
+import static christmas.util.Constants.ERROR_UNVALID_ORDER_MESSAGE;
+
 import christmas.util.Constants;
 
 public class OrderDTO {
@@ -17,13 +19,13 @@ public class OrderDTO {
 
     private void isNullOrEmpty(String order) {
         if (order == null || order.isEmpty()) {
-            throw new IllegalArgumentException("유효하지 않은 주문입니다.");
+            throw new IllegalArgumentException(ERROR_UNVALID_ORDER_MESSAGE);
         }
     }
 
     private void isOrderPattern(String order) {
         if (Constants.ORDER_PATTERN.matcher(order).matches() == false) {
-            throw new IllegalArgumentException("유효하지 않은 주문입니다.");
+            throw new IllegalArgumentException(ERROR_UNVALID_ORDER_MESSAGE);
         }
     }
 

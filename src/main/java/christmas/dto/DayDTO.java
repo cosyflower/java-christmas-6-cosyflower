@@ -1,5 +1,7 @@
 package christmas.dto;
 
+import static christmas.util.Constants.ERROR_UNVALID_DAY_MESSAGE;
+
 import christmas.util.Constants;
 
 public class DayDTO {
@@ -17,13 +19,13 @@ public class DayDTO {
 
     private void isNullOrEmpty(String dateDTO) {
         if (dateDTO == null || dateDTO.isEmpty()) {
-            throw new IllegalArgumentException("유효하지 않은 날짜입니다.");
+            throw new IllegalArgumentException(ERROR_UNVALID_DAY_MESSAGE);
         }
     }
 
     private void isNumber(String dateDTO) {
         if (Constants.NUMBER_PATTERN.matcher(dateDTO).matches() == false) {
-            throw new IllegalArgumentException("유효하지 않은 날짜입니다.");
+            throw new IllegalArgumentException(ERROR_UNVALID_DAY_MESSAGE);
         }
     }
 

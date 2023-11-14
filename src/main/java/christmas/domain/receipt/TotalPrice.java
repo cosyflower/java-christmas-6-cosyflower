@@ -11,10 +11,6 @@ public class TotalPrice {
         return new TotalPrice(totalPrice);
     }
 
-    public int getTotalPriceValue() {
-        return totalPriceValue;
-    }
-
     public boolean isBetweenPrice(int minInclusive, int maxExclusive) {
         return isSameAndHigherThan(minInclusive) && isLowerThan(maxExclusive);
     }

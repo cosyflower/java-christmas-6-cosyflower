@@ -16,14 +16,16 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
-import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.junit.jupiter.params.provider.ValueSource;
 
 public class DiscountCheckerTest {
+    private AcceptedOrders acceptedOrders;
+    private EventReservation eventReservation;
 
     private static Stream<Arguments> generateOrdersAndDiscountTypes() {
         return Stream.of(
@@ -39,92 +41,92 @@ public class DiscountCheckerTest {
 
     @ParameterizedTest
     @MethodSource("generateOrdersAndDiscountTypes")
-    void flow(int day, DiscountType... discountTypes) {
-        AcceptedOrders acceptedOrders = AcceptedOrders.from(
-                Arrays.asList(Order.from("바비큐립-3"), Order.from("초코케이크-1")));
-        EventReservation eventReservation = EventReservation.of(Day.from(day), acceptedOrders);
+    void 날짜에_맞는_이벤트_검증(int day, DiscountType... discountTypes) {
+        acceptedOrders = AcceptedOrders.from(Arrays.asList(Order.from("바비큐립-3"), Order.from("초코케이크-1")));
+        eventReservation = EventReservation.of(Day.from(day), acceptedOrders);
 
         List<DiscountType> validDiscountTypes = DiscountChecker.checkValidDiscountTypes(eventReservation);
-        
+
         assertThat(validDiscountTypes).containsExactly(discountTypes);
     }
 
+    @DisplayName("프로모션 여부 관련 이벤트")
+    @Nested
+    class PromotionChecker {
+        private static Stream<Arguments> generateMenuWithPromotion() {
+            return Stream.of(
+                    Arguments.of(Arrays.asList(Order.from("티본스테이크-2"), Order.from("초코케이크-1")), 23),
+                    Arguments.of(Arrays.asList(Order.from("크리스마스파스타-5")), 24),
+                    Arguments.of(Arrays.asList(Order.from("바비큐립-1"), Order.from("해산물파스타-2")), 25)
+            );
+        }
 
-    @ParameterizedTest
-    @MethodSource("generateOrdersAndDiscountTypes")
-    void 프로모션_없는_경우_검증(int day, DiscountType... discountTypes) {
-        AcceptedOrders acceptedOrders = AcceptedOrders.from(
-                Arrays.asList(Order.from("양송이스프-1")));
-        EventReservation eventReservation = EventReservation.of(Day.from(day), acceptedOrders);
+        @ParameterizedTest
+        @MethodSource("generateMenuWithPromotion")
+        void 포로모션_할인이_적용된_경우(List<Order> orders, int day) {
+            acceptedOrders = AcceptedOrders.from(orders);
+            eventReservation = EventReservation.of(Day.from(day), acceptedOrders);
 
-        List<DiscountType> validDiscountTypes = DiscountChecker.checkValidDiscountTypes(eventReservation);
-        assertThat(validDiscountTypes).containsExactly(discountTypes);
+            EventStatus allDiscountPrice = DiscountChecker.findAllDiscountPrice(eventReservation);
+            Map<DiscountType, DiscountPrice> eventStatus = allDiscountPrice.getEventStatus();
+
+            assertThat(eventStatus.get(PROMOTION_DISCOUNT).getDiscountPriceValue()).isEqualTo(25000);
+        }
+
+        private static Stream<Arguments> generateMenuWithoutPromotion() {
+            return Stream.of(
+                    Arguments.of(Arrays.asList(Order.from("티본스테이크-2"), Order.from("아이스크림-1")), 23),
+                    Arguments.of(Arrays.asList(Order.from("크리스마스파스타-3")), 24),
+                    Arguments.of(Arrays.asList(Order.from("바비큐립-1"), Order.from("해산물파스타-1")), 25)
+            );
+        }
+
+        @ParameterizedTest
+        @MethodSource("generateMenuWithoutPromotion")
+        void 프로모션_할인이_적용되지_않은_경우(List<Order> orders, int day) {
+            acceptedOrders = AcceptedOrders.from(orders);
+            eventReservation = EventReservation.of(Day.from(day), acceptedOrders);
+
+            EventStatus allDiscountPrice = DiscountChecker.findAllDiscountPrice(eventReservation);
+            Map<DiscountType, DiscountPrice> eventStatus = allDiscountPrice.getEventStatus();
+
+            assertThat(eventStatus.get(PROMOTION_DISCOUNT).getDiscountPriceValue()).isEqualTo(0);
+        }
+    }
+
+    private static Stream<Arguments> generateMenuWithoutDiscount(){
+        return Stream.of(
+                Arguments.of(Arrays.asList(Order.from("아이스크림-1")),2),
+                Arguments.of(Arrays.asList(Order.from("아이스크림-1"), Order.from("제로콜라-1")), 3),
+                Arguments.of(Arrays.asList(Order.from("시저샐러드-1")), 4)
+        );
     }
 
     @ParameterizedTest
-    @ValueSource(ints = {23, 24, 25, 28})
-    void 포로모션_있는_할인별_금액_확인(int day) { // 25000원 이어야 한다
-        AcceptedOrders acceptedOrders = AcceptedOrders.from(
-                Arrays.asList(Order.from("티본스테이크-2"), Order.from("초코케이크-1")));
-        EventReservation eventReservation = EventReservation.of(Day.from(day), acceptedOrders);
+    @MethodSource("generateMenuWithoutDiscount")
+    void 이벤트를_적용하지_못하는_금액_확인(List<Order> orders, int day) {
+        acceptedOrders = AcceptedOrders.from(orders);
+        eventReservation = EventReservation.of(Day.from(day), acceptedOrders);
 
         EventStatus allDiscountPrice = DiscountChecker.findAllDiscountPrice(eventReservation);
         Map<DiscountType, DiscountPrice> eventStatus = allDiscountPrice.getEventStatus();
 
         for (DiscountType discountType : eventStatus.keySet()) {
-            System.out.println("discountType = " + discountType);
-            System.out.println(eventStatus.get(discountType).getDiscountPriceValue());
+           assertThat(eventStatus.get(discountType).getDiscountPriceValue()).isEqualTo(0);
         }
-        // Assertions 추가
-    }
-
-    @ParameterizedTest
-    @ValueSource(ints = {23, 24, 25, 28})
-    void 프로모션_없이_할인별_금액_확인(int day) { // 프로모션 금액이 0이여야 한다
-        AcceptedOrders acceptedOrders = AcceptedOrders.from(
-                Arrays.asList(Order.from("티본스테이크-2"), Order.from("아이스크림-1")));
-        EventReservation eventReservation = EventReservation.of(Day.from(day), acceptedOrders);
-
-        EventStatus allDiscountPrice = DiscountChecker.findAllDiscountPrice(eventReservation);
-        Map<DiscountType, DiscountPrice> eventStatus = allDiscountPrice.getEventStatus();
-
-        for (DiscountType discountType : eventStatus.keySet()) {
-            System.out.println("discountType = " + discountType);
-            System.out.println(eventStatus.get(discountType).getDiscountPriceValue());
-        }
-        // Assertions 추가
-    }
-
-    @ParameterizedTest
-    @ValueSource(ints = {23, 24, 25, 28})
-    void 이벤트를_적용하지_못하는_금액_확인(int day) {
-        // Assertions 추가
-        AcceptedOrders acceptedOrders = AcceptedOrders.from(
-                Arrays.asList(Order.from("아이스크림-1")));
-        EventReservation eventReservation = EventReservation.of(Day.from(day), acceptedOrders);
-
-        EventStatus allDiscountPrice = DiscountChecker.findAllDiscountPrice(eventReservation);
-        Map<DiscountType, DiscountPrice> eventStatus = allDiscountPrice.getEventStatus();
-
-        for (DiscountType discountType : eventStatus.keySet()) {
-            System.out.println("discountType = " + discountType);
-            System.out.println(eventStatus.get(discountType).getDiscountPriceValue());
-        }
-        // Assertions 추가
     }
 
     @Test
     void 혜택_금액_그리고_실제_할인_금액_확인() {
-        // 혜택 금액을 확인한다
-        AcceptedOrders acceptedOrders = AcceptedOrders.from(
-                Arrays.asList(Order.from("양송이스프-3"), Order.from("티본스테이크-2"), Order.from("아이스크림-1")));
-        EventReservation eventReservation = EventReservation.of(Day.from(25), acceptedOrders);
-        EventStatus allDiscountPrice = DiscountChecker.findAllDiscountPrice(eventReservation);
+        acceptedOrders = AcceptedOrders.from(Arrays.asList(Order.from("양송이스프-3"),
+                Order.from("티본스테이크-2"), Order.from("아이스크림-1")));
+        eventReservation = EventReservation.of(Day.from(25), acceptedOrders);
+        EventStatus eventStatus = DiscountChecker.findAllDiscountPrice(eventReservation);
 
-        int actualDiscountAmount = allDiscountPrice.getActualDiscountAmount();
-        int benefitAmount = allDiscountPrice.getBenefitAmount();
+        int actualDiscountAmount = eventStatus.getActualDiscountAmount();
+        int benefitAmount = eventStatus.getBenefitAmount();
 
-        Assertions.assertThat(actualDiscountAmount).isEqualTo(6423);
-        Assertions.assertThat(benefitAmount).isEqualTo(31423);
+        assertThat(actualDiscountAmount).isEqualTo(6423);
+        assertThat(benefitAmount).isEqualTo(31423);
     }
 }

@@ -24,6 +24,4 @@ public class DiscountChecker {
                         discountType.findDiscountPrice(eventReservation)));
         return eventStatus;
     }
-
-
 }

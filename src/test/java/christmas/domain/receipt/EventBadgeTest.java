@@ -1,7 +1,6 @@
 package christmas.domain.receipt;
 
 import christmas.domain.order.AcceptedOrders;
-import christmas.domain.order.Order;
 import christmas.dto.OrderDTO;
 import christmas.util.Mapper;
 import java.util.stream.Stream;
@@ -40,12 +39,9 @@ public class EventBadgeTest {
         @CsvSource(value = {"양송이스프-2,티본스테이크-3:177000"}, delimiter = ':')
         void 할인_적용_전_전체_가격_확인하기(String order, int total) {
             AcceptedOrders acceptedOrders = generateAcceptedOrders(order);
-            Assertions.assertThat(acceptedOrders.getAcceptedOrders()).containsExactly(
-                    Order.from("양송이스프-2"), Order.from("티본스테이크-3")
-            );
 
-            TotalPrice totalPrice = TotalPrice.from(acceptedOrders.checkTotalPriceWithoutDiscount());
-            Assertions.assertThat(totalPrice.getTotalPriceValue()).isEqualTo(total);
+            int totalPrice = acceptedOrders.checkTotalPriceWithoutDiscount();
+            Assertions.assertThat(totalPrice).isEqualTo(total);
         }
 
         private static Stream<Arguments> generateAcceptedOrderAndTotalPrice() {

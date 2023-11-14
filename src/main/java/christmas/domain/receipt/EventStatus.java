@@ -22,14 +22,14 @@ public class EventStatus {
         eventStatus.replace(discountType, discountPrice);
     }
 
-    public int getBenefitAmount() { // 혜택은 프로모션 포함함
+    public int getBenefitAmount() {
         return eventStatus.entrySet()
                 .stream()
                 .mapToInt(entry -> entry.getValue().getDiscountPriceValue())
                 .sum();
     }
 
-    public int getActualDiscountAmount() { // 실제 할인은 프로모션 포함하지 않음
+    public int getActualDiscountAmount() {
         return eventStatus.entrySet()
                 .stream()
                 .filter(entry -> entry.getKey() != DiscountType.PROMOTION_DISCOUNT)

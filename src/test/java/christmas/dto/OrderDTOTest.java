@@ -18,7 +18,7 @@ public class OrderDTOTest {
         void 아무것도_입력하지_않은_경우_예외(String unvalidOrder) {
             Assertions.assertThatThrownBy(() -> new OrderDTO(unvalidOrder))
                     .isInstanceOf(IllegalArgumentException.class)
-                    .hasMessageContaining("아무것도 입력하지");
+                    .hasMessageContaining("유효하지 않은 주문입니다.");
         }
 
         @ParameterizedTest(name = "$메뉴명-$메뉴 개수의 형식을 지키지 않은 경우")

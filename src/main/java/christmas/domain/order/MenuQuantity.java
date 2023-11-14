@@ -46,4 +46,11 @@ public class MenuQuantity {
     public int hashCode() {
         return Objects.hash(menuQuantityValue);
     }
+
+    @Override
+    public String toString() {
+        return "MenuQuantity{" +
+                "menuQuantityValue=" + menuQuantityValue +
+                '}';
+    }
 }

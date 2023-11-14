@@ -22,10 +22,10 @@ public class MapperTest {
                         OrderDTO orderDTO = new OrderDTO(notInMenu);
                         AcceptedOrders acceptedOrders = Mapper.toAcceptedOrders(orderDTO);
                     }).isInstanceOf(IllegalArgumentException.class)
-                    .hasMessageContaining("유효하지");
+                    .hasMessageContaining("유효하지 않은 주문입니다.");
         }
 
-        @ParameterizedTest
+        @ParameterizedTest(name = "orderDTO에서 AcceptedOrders로 변환")
         @ValueSource(strings = {"양송이스프-2", "티본스테이크-3"})
         void orderDTO_To_AcceptedOrders(String input) {
             OrderDTO orderDTO = new OrderDTO(input);
@@ -48,5 +48,13 @@ public class MapperTest {
                     .hasMessageContaining("유효하지 않는 주문입니다");
         }
 
+        @ParameterizedTest
+        @ValueSource(strings = {"양송이스프-2,시저샐러드-3", "티본스테이크-3,샴페인-2"})
+        void 중복하는_메뉴를_입력하지_않으면_성공(String nonDuplicatedMenu) {
+            Assertions.assertThatCode(() -> {
+                        OrderDTO orderDTO = new OrderDTO(nonDuplicatedMenu);
+                        AcceptedOrders acceptedOrders = Mapper.toAcceptedOrders(orderDTO);
+                    }).doesNotThrowAnyException();
+        }
     }
 }

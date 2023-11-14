@@ -47,12 +47,16 @@ public class Order {
         return Objects.hash(menuProduct, menuQuantity);
     }
 
-    public MenuProduct getMenuProduct() {
-        return menuProduct;
+    @Override
+    public String toString() {
+        return "Order{" +
+                "menuProduct=" + menuProduct +
+                ", menuQuantity=" + menuQuantity +
+                '}';
     }
 
-    public MenuQuantity getMenuQuantity() {
-        return menuQuantity;
+    public MenuProduct getMenuProduct() {
+        return menuProduct;
     }
 
     public String getMenuNameValue() {

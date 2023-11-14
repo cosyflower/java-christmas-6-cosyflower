@@ -48,7 +48,7 @@ public class EventStatus {
     public Map<DiscountType, DiscountPrice> removeNonAppliedDiscount() {
         Set<DiscountType> discountTypes = eventStatus.keySet();
         for (DiscountType discountType : discountTypes) {
-            if (eventStatus.get(discountType).isUnvalidDiscount()) { // Refactor
+            if (eventStatus.get(discountType).isUnvalidDiscount()) {
                 eventStatus.remove(discountType);
             }
         }

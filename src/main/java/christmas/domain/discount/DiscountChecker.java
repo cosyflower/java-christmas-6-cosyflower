@@ -7,7 +7,7 @@ import java.util.List;
 
 public class DiscountChecker {
     private static final int DISCOUNT_THRESHOLD = 10000;
-    // private 화 해야 한다
+
     public static List<DiscountType> checkValidDiscountTypes(EventReservation eventReservation) {
         return Arrays.stream(DiscountType.values())
                 .filter(discountType -> discountType.checkValidEvent(eventReservation))

@@ -99,7 +99,7 @@ public class AcceptedOrdersTest {
             Assertions.assertThatCode(() ->
                             AcceptedOrders.from(duplicatedMenus)
                     ).isInstanceOf(IllegalArgumentException.class)
-                    .hasMessageContaining("유효하지 않는 주문입니다");
+                    .hasMessageContaining("유효하지 않은 주문입니다");
         }
 
         private static Stream<Arguments> generateOnlyDrinks() {
@@ -116,7 +116,7 @@ public class AcceptedOrdersTest {
             Assertions.assertThatCode(() ->
                             AcceptedOrders.from(onlyDrinks)
                     ).isInstanceOf(IllegalArgumentException.class)
-                    .hasMessageContaining("유효하지 않는 주문입니다");
+                    .hasMessageContaining("유효하지 않은 주문입니다");
         }
 
         private static Stream<Arguments> generateOverMaximumMenus() {
@@ -133,7 +133,7 @@ public class AcceptedOrdersTest {
             Assertions.assertThatCode(() ->
                             AcceptedOrders.from(overMaximumMenus)
                     ).isInstanceOf(IllegalArgumentException.class)
-                    .hasMessageContaining("유효하지 않는 주문입니다");
+                    .hasMessageContaining("유효하지 않은 주문입니다");
         }
     }
 }

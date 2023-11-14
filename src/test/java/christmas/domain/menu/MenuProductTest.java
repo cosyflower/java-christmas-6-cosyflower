@@ -26,10 +26,10 @@ public class MenuProductTest {
     void 존재하지_않는_메뉴면_예외(String unvalidName) {
         assertThatCode(() -> MenuProduct.findMenuProductByName(unvalidName))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("유효하지 않는 주문입니다");
+                .hasMessage("유효하지 않은 주문입니다.");
     }
 
-    @ParameterizedTest(name = "존재하지 않는 메뉴 이름 - {0}")
+    @ParameterizedTest(name = "존재하는 메뉴 이름 - {0}")
     @ValueSource(strings = {"초코케이크", "양송이스프", "티본스테이크"})
     void 존재하는_메뉴면_성공(String validName) {
         assertThatCode(() -> MenuProduct.findMenuProductByName(validName))

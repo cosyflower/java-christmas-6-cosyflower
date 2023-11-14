@@ -9,10 +9,10 @@ public class Order {
     private static final int MENU_PRODUCT_INDEX = 0;
     private static final int MENU_QUANTITY_INDEX = 1;
 
-    private final MenuProduct menuProduct; // 메뉴
-    private final MenuQuantity menuQuantity; // 수량
+    private final MenuProduct menuProduct;
+    private final MenuQuantity menuQuantity;
 
-    private Order(String menuAndNumber) { // "양송이스프-2" 가 들어온 상황
+    private Order(String menuAndNumber) {
         String[] split = menuAndNumber.split(ORDER_SEPARATOR);
         this.menuProduct = MenuProduct.findMenuProductByName(split[MENU_PRODUCT_INDEX]);
         this.menuQuantity = MenuQuantity.from(split[MENU_QUANTITY_INDEX]);

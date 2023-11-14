@@ -46,10 +46,9 @@ public enum MenuProduct {
                     )
     );
 
-
     public static MenuProduct findMenuProductByName(String name) {
         return Optional.ofNullable(menuProductMap.get(MenuName.from(name)))
-                .orElseThrow(() -> new IllegalArgumentException("유효하지 않는 주문입니다"));
+                .orElseThrow(() -> new IllegalArgumentException("유효하지 않은 주문입니다."));
     }
 
     public boolean isSameMenuType(MenuType otherMenuType) {

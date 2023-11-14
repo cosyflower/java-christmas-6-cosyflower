@@ -23,15 +23,15 @@ public class PlannerApplication {
     }
 
     public void run() {
-        // 전체 로직의 흐름
+        // Day, AcceptedOrders 등록
         Day day = new RegisterDayController(inputView, outputView).process();
         AcceptedOrders acceptedOrders = new RegisterOrderController(inputView).process();
-
+        // AcceptedOrders 출력
         new DisplayAcceptedOrdersController(outputView, acceptedOrders).process();
-
+        // EventReservation 등록, EventStatus 생성
         EventReservation eventReservation = EventReservation.of(day, acceptedOrders);
         EventStatus eventStatus = DiscountChecker.findAllDiscountPrice(eventReservation);
-
+        // 결과 출력
         new DisplayBenefitController(outputView, eventStatus).process();
         new DisplayBadgeController(outputView, eventStatus, acceptedOrders).process();
     }

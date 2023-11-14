@@ -26,11 +26,11 @@ public class MenuName {
             return false;
         }
         MenuName menuName1 = (MenuName) o;
-        return Objects.equals(getMenuNameValue(), menuName1.getMenuNameValue());
+        return Objects.equals(menuName, menuName1.menuName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getMenuNameValue());
+        return Objects.hash(menuName);
     }
 }

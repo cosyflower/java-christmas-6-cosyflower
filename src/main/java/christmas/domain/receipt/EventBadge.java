@@ -12,8 +12,7 @@ public enum EventBadge {
     ;
 
     private final String description;
-    private final Predicate<TotalPrice> discountPriceCriteria; // TotalPrice로 변경하기
-
+    private final Predicate<TotalPrice> discountPriceCriteria;
 
     EventBadge(String description,
                Predicate<TotalPrice> discountPriceCriteria) {
@@ -22,8 +21,6 @@ public enum EventBadge {
     }
 
     public static EventBadge findEventBadgeByDiscountPrice(TotalPrice totalPrice) {
-        // 범위에 만족하면
-        // 해당 배지를 반환한다
         return Arrays.stream(values())
                 .filter((badge) -> badge.discountPriceCriteria.test(totalPrice))
                 .findFirst()

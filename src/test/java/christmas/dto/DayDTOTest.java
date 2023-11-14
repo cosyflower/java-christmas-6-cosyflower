@@ -18,7 +18,7 @@ class DayDTOTest {
         void 아무것도_입력하지_않으면_예외(String nullAndEmpty) {
             Assertions.assertThatThrownBy(() -> new DayDTO(nullAndEmpty))
                     .isInstanceOf(IllegalArgumentException.class)
-                    .hasMessageContaining("아무것도");
+                    .hasMessageContaining("유효하지 않은 날짜입니다.");
         }
 
         private static Stream<Arguments> generateNonNumber() {

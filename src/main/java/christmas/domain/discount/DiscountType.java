@@ -2,7 +2,7 @@ package christmas.domain.discount;
 
 import christmas.domain.reservation.EventReservation;
 
-public enum DiscountType { // 이벤트 관련 총 정보
+public enum DiscountType {
     // 변동 금액
     WEEKDAY_DISCOUNT(DiscountEvent.WEEKDAY_EVENT, DiscountEventName.from("평일 할인")),
     WEEKEND_DISCOUNT(DiscountEvent.WEEKEND_EVENT, DiscountEventName.from("주말 할인")),
@@ -14,7 +14,7 @@ public enum DiscountType { // 이벤트 관련 총 정보
 
     private final DiscountEvent discountEvent;
     private final DiscountEventName discountEventName;
-    // 각 이벤트 별 할인하는 메를 작성한다
+
     DiscountType(DiscountEvent discountEvent, DiscountEventName discountEventName) {
         this.discountEvent = discountEvent;
         this.discountEventName = discountEventName;
@@ -24,7 +24,6 @@ public enum DiscountType { // 이벤트 관련 총 정보
         return discountEvent.applyDiscountPrice(eventReservation);
     }
 
-    // chekcValidDiscountType()
     public boolean checkValidEvent(EventReservation eventReservation) {
         return discountEvent.isValidEvent(eventReservation);
     }

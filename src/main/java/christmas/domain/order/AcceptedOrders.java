@@ -25,7 +25,7 @@ public class AcceptedOrders {
 
     private void hasOnlyDrinks(List<Order> acceptedOrders) {
         if (acceptedOrders.stream().allMatch(order -> order.hasSameMenuType(MenuType.DRINK))) {
-            throw new IllegalArgumentException("유효하지 않는 주문입니다");
+            throw new IllegalArgumentException("유효하지 않은 주문입니다.");
         }
     }
 
@@ -33,7 +33,7 @@ public class AcceptedOrders {
         if (acceptedOrders.stream()
                 .mapToInt(order -> order.getMenuQuantityValue())
                 .sum() > MAXIMUM_ORDER) {
-            throw new IllegalArgumentException("유효하지 않는 주문입니다");
+            throw new IllegalArgumentException("유효하지 않은 주문입니다.");
         }
     }
 
@@ -42,7 +42,7 @@ public class AcceptedOrders {
         acceptedOrders.stream()
                 .forEach((order) -> menuProducts.add(order.getMenuProduct()));
         if (acceptedOrders.size() != menuProducts.size()) {
-            throw new IllegalArgumentException("유효하지 않는 주문입니다");
+            throw new IllegalArgumentException("유효하지 않은 주문입니다.");
         }
     }
 

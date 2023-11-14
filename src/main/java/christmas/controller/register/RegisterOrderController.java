@@ -6,7 +6,6 @@ import christmas.util.Mapper;
 import christmas.view.InputView;
 
 public class RegisterOrderController extends RegisterAbstractController<AcceptedOrders> {
-    // 주문을 입력받는다
     private final InputView inputView;;
 
     public RegisterOrderController(InputView inputView) {

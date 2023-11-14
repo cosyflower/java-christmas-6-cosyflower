@@ -18,7 +18,7 @@ public class MenuQuantity {
 
     private void isStartsWithZero(String menuQuantity) {
         if (menuQuantity.startsWith(UNVALID_PREFIX)) {
-            throw new IllegalArgumentException("유효하지 않은 주문입니다");
+            throw new IllegalArgumentException("유효하지 않은 주문입니다.");
         }
     }
 
@@ -31,7 +31,7 @@ public class MenuQuantity {
     }
 
     @Override
-    public boolean equals(Object o) { // 활용되는지 확인
+    public boolean equals(Object o) {
         if (this == o) {
             return true;
         }
@@ -42,7 +42,7 @@ public class MenuQuantity {
         return menuQuantityValue == that.menuQuantityValue;
     }
 
-    @Override // 활용되는지 확인
+    @Override
     public int hashCode() {
         return Objects.hash(menuQuantityValue);
     }

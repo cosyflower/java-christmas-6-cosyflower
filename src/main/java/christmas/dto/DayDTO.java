@@ -1,8 +1,7 @@
 package christmas.dto;
 
 import static christmas.util.Constants.ERROR_UNVALID_DAY_MESSAGE;
-
-import christmas.util.Constants;
+import static christmas.util.Constants.NUMBER_PATTERN;
 
 public class DayDTO {
     private final String dateDTO;
@@ -24,7 +23,7 @@ public class DayDTO {
     }
 
     private void isNumber(String dateDTO) {
-        if (Constants.NUMBER_PATTERN.matcher(dateDTO).matches() == false) {
+        if (NUMBER_PATTERN.matcher(dateDTO).matches() == false) {
             throw new IllegalArgumentException(ERROR_UNVALID_DAY_MESSAGE);
         }
     }

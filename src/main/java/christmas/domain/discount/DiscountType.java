@@ -31,8 +31,4 @@ public enum DiscountType {
     public String getDiscountEventNameValue() {
         return discountEventName.getEventNameValue();
     }
-
-    public DiscountEvent getDiscountEvent() {
-        return discountEvent;
-    }
 }

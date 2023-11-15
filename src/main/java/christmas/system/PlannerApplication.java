@@ -1,5 +1,6 @@
 package christmas.system;
 
+import camp.nextstep.edu.missionutils.Console;
 import christmas.controller.display.DisplayAcceptedOrdersController;
 import christmas.controller.display.DisplayBadgeController;
 import christmas.controller.display.DisplayBenefitController;
@@ -34,5 +35,6 @@ public class PlannerApplication {
         // 결과 출력
         new DisplayBenefitController(outputView, eventStatus).process();
         new DisplayBadgeController(outputView, eventStatus, acceptedOrders).process();
+        Console.close();
     }
 }

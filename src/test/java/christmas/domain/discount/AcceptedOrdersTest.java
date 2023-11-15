@@ -10,16 +10,17 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.DisplayNameGeneration;
+import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 public class AcceptedOrdersTest {
     @Test
-    @DisplayName("메인 메뉴 개수 확인")
     void 특정_메뉴_개수_확인() {
         AcceptedOrders acceptedOrders = AcceptedOrders.from(Arrays.asList(Order.from("양송이스프-2"),
                 Order.from("티본스테이크-3")));
@@ -47,7 +48,6 @@ public class AcceptedOrdersTest {
         Assertions.assertThat(totalPriceWithoutDiscount).isEqualTo(result);
     }
 
-    @DisplayName("유효한 주문")
     @Nested
     class validOrders {
         private static Stream<Arguments> generateNonDuplicatedMenus() {
@@ -81,7 +81,6 @@ public class AcceptedOrdersTest {
         }
     }
 
-    @DisplayName("유효하지 않은 주문")
     @Nested
     class unvalidOrders {
         private static Stream<Arguments> generateDuplicatedMenus() {

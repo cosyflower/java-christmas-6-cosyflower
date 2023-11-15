@@ -4,6 +4,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import christmas.domain.order.AcceptedOrders;
 import christmas.domain.order.Order;
+import christmas.domain.reservation.Day;
+import christmas.dto.DayDTO;
 import christmas.dto.OrderDTO;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -12,6 +14,27 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 public class MapperTest {
+    @ParameterizedTest
+    @ValueSource(strings = {"0", "32"})
+    void 범위_외_숫자_문자열이면_예외(String day) {
+        Assertions.assertThatCode(() -> {
+                            DayDTO dayDTO = new DayDTO(day);
+                            Day mappedDay = Mapper.toDay(dayDTO);
+                        }
+                ).isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("유효하지 않은 날짜입니다");
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"1", "31"})
+    void 범위_내_숫자_문자열이면_성공(String day) {
+        Assertions.assertThatCode(() -> {
+            DayDTO dayDTO = new DayDTO(day);
+            Day mappedDay = Mapper.toDay(dayDTO);
+
+        }).doesNotThrowAnyException();
+    }
+
     @Nested
     @DisplayName("단일 메뉴만 주문한 경우")
     class SingleMenu {

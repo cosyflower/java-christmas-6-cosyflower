@@ -18,7 +18,7 @@ public class MenuProductTest {
 
         assertThat(mushroomSoup.getMenuType()).isEqualTo(MenuType.APPETIZER);
         assertThat(mushroomSoup.getMenuName()).isEqualTo(MenuName.from("양송이스프"));
-        assertThat(mushroomSoup.getPrice()).isEqualTo(MenuPrice.from(6000));
+        assertThat(mushroomSoup.getPriceValue()).isEqualTo(6000);
     }
 
     @ParameterizedTest(name = "존재하지 않는 메뉴 이름 - {0}")

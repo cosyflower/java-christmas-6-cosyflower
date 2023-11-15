@@ -1,13 +1,12 @@
 package christmas.domain.menu;
 
 import christmas.domain.order.MenuQuantity;
-import java.util.Objects;
 
 public class MenuPrice {
-    private final int price;
+    private final int priceValue;
 
     private MenuPrice(int price) {
-        this.price = price;
+        this.priceValue = price;
     }
 
     public static MenuPrice from(int price) {
@@ -15,27 +14,10 @@ public class MenuPrice {
     }
 
     public int multiplyQuantity(MenuQuantity menuQuantity) {
-        return price * menuQuantity.getMenuQuantityValue();
+        return priceValue * menuQuantity.getMenuQuantityValue();
     }
 
-    public int getPrice() {
-        return price;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        MenuPrice price1 = (MenuPrice) o;
-        return getPrice() == price1.getPrice();
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getPrice());
+    public int getPriceValue() {
+        return priceValue;
     }
 }

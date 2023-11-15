@@ -65,8 +65,8 @@ public enum MenuProduct {
         return menuName;
     }
 
-    public MenuPrice getPrice() {
-        return price;
+    public int getPriceValue() {
+        return price.getPriceValue();
     }
 
     public int generateTotalPrice(MenuQuantity menuQuantity) {
